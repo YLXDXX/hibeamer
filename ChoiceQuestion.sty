@@ -130,7 +130,7 @@
       \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1}
     }
     {
-      \CJKunderline[skip=false,format=\color{AnswerGreen},thickness=1pt]{#1}
+      \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1}
     }
 }
 
@@ -304,8 +304,12 @@
 \NewDocumentCommand \tkanswer {m}
 {
     \bool_if:NTF{\l_CQ_isanswershown_bool}
-    {\;{\color{\l_CQ_answer_color_tl}\CJKunderline{\;#1\;}}}
-    {\;\CJKunderline{\;\hspace*{2em}\;}}
+    {
+      \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1}
+    }
+    {
+      \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1}
+    }
 }
 
 %在高考题中，还有一类作图题，或连线题，如连接电路图
