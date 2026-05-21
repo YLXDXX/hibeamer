@@ -311,8 +311,8 @@
 % 模块六：表格与快捷命令
 % ==========================================
 \tikzset{
-  highend-axis/.style={->,>=stealth,PrimaryNavy,line width=1.2pt},
-  highend-curve/.style={line width=2.0pt,AccentGold},
+  highend-axis/.style={->,>=stealth,PrimaryNavy,line width=1.1pt},
+  highend-curve/.style={line width=1.3pt,AccentGold},
   highend-grid/.style={help lines,step=1cm,BGCoolGray,line width=0.6pt,dashed},
   highend-aux/.style={line width=0.5pt,LightGray,dashed}
 }

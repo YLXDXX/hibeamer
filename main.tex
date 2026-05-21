@@ -155,14 +155,10 @@
           碰撞时间为 $t$，求地面对小球的平均作用力。
 
     \jdanswer{
-      规定向下为正方向。
-
-      落地前速度：$v_1 = \sqrt{2gh}$
-
-      反弹后速度：$v_2 = -\sqrt{2g \cdot h/4} = -\frac{1}{2}\sqrt{2gh}$
-
-      由动量定理：$(mg - \bar{N})t = m(v_2 - v_1)$
-
+      规定向下为正方向。\\
+      落地前速度：$v_1 = \sqrt{2gh}$\\
+      反弹后速度：$v_2 = -\sqrt{2g \cdot h/4} = -\frac{1}{2}\sqrt{2gh}$\\
+      由动量定理：$(mg - \bar{N})t = m(v_2 - v_1)$\\
       $\bar{N} = mg + \frac{3m\sqrt{2gh}}{2t}$
     }
 
@@ -170,10 +166,8 @@
           已知碰前速度分别为 $v_1$、$v_2$（同方向），求碰后共同速度和动能损失。
 
     \jdanswer{
-      由动量守恒：$m_1 v_1 + m_2 v_2 = (m_1 + m_2)v$
-
-      碰后共同速度：$v = \frac{m_1 v_1 + m_2 v_2}{m_1 + m_2}$
-
+      由动量守恒：$m_1 v_1 + m_2 v_2 = (m_1 + m_2)v$\\
+      碰后共同速度：$v = \frac{m_1 v_1 + m_2 v_2}{m_1 + m_2}$\\
       动能损失：$\Delta E_k = \frac{1}{2}\frac{m_1 m_2}{m_1 + m_2}(v_1 - v_2)^2$
     }
   \end{ExerciseList}
@@ -338,12 +332,9 @@
     时间     & \texttt{\textbackslash Us}   & $\Us$ \\
     速度     & \texttt{\textbackslash Ums}  & $\Ums$ \\
     加速度   & \texttt{\textbackslash Umsq} & $\Umsq$ \\
-    力       & \texttt{\textbackslash UN}   & $\UN$ \\
     功/能量  & \texttt{\textbackslash UJ}   & $\UJ$ \\
     功率     & \texttt{\textbackslash UW}   & $\UW$ \\
-    压强     & \texttt{\textbackslash UPa}  & $\UPa$ \\
     频率     & \texttt{\textbackslash UHz}  & $\UHz$ \\
-    角度     & \texttt{\textbackslash Udu}  & $\Udu$ \\
     弧度     & \texttt{\textbackslash Urad} & $\Urad$ \\
     角速度   & \texttt{\textbackslash Urads}& $\Urads$ \\
     牛顿·秒  & \texttt{\textbackslash UNs}  & $\UNs$ \\
@@ -390,7 +381,7 @@
 
   使用可选参数 \texttt{[a]} 紧贴数字：
 
-  $0.5\Ukg$（有空格） vs $0.5$\Ukg[a]（无空格）
+  $0.5\Ukg$（有空格） vs $0.5 \Ukg[a]$（无空格）
 
   \vspace{1em}
 
@@ -468,61 +459,58 @@
 \end{frame}
 
 \begin{frame}{子图测试}
-  \begin{columns}[T]
-    \begin{column}{0.5\linewidth}
-      \begin{figure}
-        \centering
-        \begin{subfigure}[b]{0.85\textwidth}
-          \centering
-          \begin{tikzpicture}[scale=0.8]
-            \draw[highend-axis] (-0.2,0) -- (2.5,0);
-            \draw[highend-axis] (0,-0.2) -- (0,4.2);
-            \draw[highend-curve, domain=0:2] plot (\x, {\x*\x});
-          \end{tikzpicture}
-          \caption{二次函数 $y = x^2$}
-        \end{subfigure}
-
-        \begin{subfigure}[b]{0.85\textwidth}
-          \centering
-          \begin{tikzpicture}[scale=0.8]
-            \draw[highend-axis] (-0.2,0) -- (2.5,0);
-            \draw[highend-axis] (0,-0.2) -- (0,4.2);
-            \draw[highend-curve, domain=0:1.4] plot (\x, {exp(\x)});
-          \end{tikzpicture}
-          \caption{指数函数 $y = e^x$}
-        \end{subfigure}
-        \caption{基本初等函数}
-      \end{figure}
-    \end{column}
-
-    \begin{column}{0.45\linewidth}
-      \begin{figure}
-        \centering
-        \begin{subfigure}[b]{0.85\textwidth}
-          \centering
-          \begin{tikzpicture}[scale=0.8]
-            \draw[highend-axis] (-0.2,0) -- (4.5,0);
-            \draw[highend-axis] (0,-2.2) -- (0,2.2);
-            \draw[highend-curve, domain=0.3:4] plot (\x, {ln(\x)});
-          \end{tikzpicture}
-          \caption{对数函数 $y = \ln x$}
-        \end{subfigure}
-
-        \begin{subfigure}[b]{0.85\textwidth}
-          \centering
-          \begin{tikzpicture}[scale=0.8]
-            \draw[highend-axis] (-0.2,0) -- (4.5,0);
-            \draw[highend-axis] (0,-1.5) -- (0,1.5);
-            \draw[highend-curve, domain=0:4, samples=100]
-              plot (\x, {sin(\x r)});
-          \end{tikzpicture}
-          \caption{正弦函数 $y = \sin x$}
-        \end{subfigure}
-        \caption{超越函数}
-      \end{figure}
-    \end{column}
-  \end{columns}
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=0.8]
+			\draw[highend-axis] (-0.2,0) -- (2.5,0);
+			\draw[highend-axis] (0,-0.2) -- (0,4.2);
+			\draw[highend-curve, domain=0:2] plot (\x, {\x*\x});
+		\end{tikzpicture}
+		\caption{二次函数 $y = x^2$}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=0.8]
+			\draw[highend-axis] (-0.2,0) -- (2.5,0);
+			\draw[highend-axis] (0,-0.2) -- (0,4.2);
+			\draw[highend-curve, domain=0:1.4] plot (\x, {exp(\x)});
+		\end{tikzpicture}
+		\caption{指数函数 $y = e^x$}
+	\end{subfigure}
+	\caption{基本初等函数}
+\end{figure}
 \end{frame}
+
+
+\begin{frame}{子图测试}
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=0.8]
+			\draw[highend-axis] (-0.2,0) -- (4.5,0);
+			\draw[highend-axis] (0,-2.2) -- (0,2.2);
+			\draw[highend-curve, domain=0.3:4] plot (\x, {ln(\x)});
+		\end{tikzpicture}
+		\caption{对数函数 $y = \ln x$}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=0.8]
+			\draw[highend-axis] (-0.2,0) -- (4.5,0);
+			\draw[highend-axis] (0,-1.5) -- (0,1.5);
+			\draw[highend-curve, domain=0:4, samples=100]
+			plot (\x, {sin(\x r)});
+		\end{tikzpicture}
+		\caption{正弦函数 $y = \sin x$}
+	\end{subfigure}
+	\caption{超越函数}
+\end{figure}
+\end{frame}
+
+
 
 \begin{frame}{双栏布局 --- \texttt{columns} 环境}
   \begin{columns}[T]
@@ -563,12 +551,12 @@
   模板提供两种行内高亮命令：
 
   \vspace{0.5em}
-  正交分解法是解决力学问题 \hl{最重要} 的方法之一，
-  需要 \hl{反复练习} 才能 \hl{熟练掌握}。
+  正交分解法是解决力学问题\hl{最重要}的方法之一，
+  需要\hl{反复练习}才能\hl{熟练掌握}。
 
   \vspace{1em}
   注意：计算功的公式 $W = Fs\cos\theta$ 中，\hlwarn{$\theta$ 是力与位移方向的夹角}，
-  而 \hlwarn{不是}力与斜面的夹角。
+  而\hlwarn{不是}力与斜面的夹角。
 
   \vspace{1em}
   \texttt{\textbackslash hl} 用于强调重点{\hl{金色加粗}}，
@@ -580,7 +568,7 @@
   以下为中文圈数字测试：① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩
 
   \vspace{1em}
-  以下为罗马数字测试：Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ Ⅹ
+  以下为罗马数字测试：Ⅰ \; Ⅱ  \; Ⅲ   \; Ⅳ  \; Ⅴ  \; Ⅵ  \; Ⅶ  \; Ⅷ  \; Ⅸ  \; Ⅹ
 
   \vspace{1em}
   在实际使用中，圈数字可用于标注子步骤，罗马数字可用于大题编号：
