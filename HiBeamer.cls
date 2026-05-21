@@ -282,9 +282,9 @@
 \__highend_new_block:nnnnn { thm }  { PrimaryNavy } { white }     { BGCoolGray } { Theorem }
 \__highend_new_block:nnnnn { defn } { PrimaryNavy } { white }     { BGCoolGray } { Definition }
 \__highend_new_block:nnnnn { imp }  { AccentGold }  { PrimaryNavy }{ BGImp }     { Important }
-\__highend_new_block:nnnnn { warn } { AlertTerra }  { white }     { BGWarn }    { Warning }
+\__highend_new_block:nnnnn { warn } { AlertTerra }  { PrimaryNavy }{ BGWarn }    { Warning }
 \__highend_new_block:nnnnn { eg }   { AccentGold }  { PrimaryNavy }{ AccentGold!8 }     { Example }
-\__highend_new_block:nnnnn { ex }   { AlertTerra }  { white }     { BGWarn }    { Exercise }
+\__highend_new_block:nnnnn { ex }   { AlertTerra }  { PrimaryNavy }{ BGWarn }    { Exercise }
 \__highend_new_block:nnnnn { tip }  { InfoTeal }    { white }     { BGTeal }    { Tip }
 \__highend_new_block:nnnnn { memo } { LightGray }   { TextDark }  { BGCoolGray }{ Memo }
 \__highend_new_block:nnnnn { supp } { SuppBlue }    { white }     { BGBlue }    { Supplement }
