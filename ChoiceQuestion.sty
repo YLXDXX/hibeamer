@@ -35,7 +35,6 @@
 
 % 消息
 \msg_new:nnn { CQ_keys_choices } { unknown-key }{Unknown~key~'\l_keys_key_tl'~in~command~options.}
-\msg_new:nnn { GK_keys_choices } { unknown-key }{Unknown~key~'\l_keys_key_tl'~in~command~options.}
 
 
 %宏包加载时的选项
@@ -126,21 +125,6 @@
 % ==========================================================
 \mymod_if_beamer:T
 {
-%选择题相关命令
-\keys_define:nn { GK_keys_choices }
-{
-    %可选输入参数
-    answer .tl_set:N = \l_CQ_choices_answer_tl,
-    color .tl_set:N = \l_CQ_choices_color_tl,
-    ispicture .bool_set:N = \l_CQ_choices_ispicture_bool,
-
-    %默认值
-    ispicture .initial:n = {false},
-    answer .initial:n = {Z},
-    color .initial:n = {black},
-    unknown .code:n = \msg_error:nn { GK_keys_choices } { unknown-key } %处理未定义的键
-}
-
 %填空题答案显示
 \NewDocumentCommand \tkanswer {m}
 {
@@ -206,7 +190,7 @@
 {
     \begingroup % to make sure the keys don't act globally
 
-    \keys_set:nn{GK_keys_choices}{#1}
+    \keys_set:nn{CQ_keys_choices}{#1}
 
     \bool_if:NTF{\l_CQ_choices_ispicture_bool}
     { \tl_set:Nn \l_CQ_choices_label_pos_tl {bottom} }
