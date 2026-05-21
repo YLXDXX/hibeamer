@@ -84,7 +84,7 @@
 \definecolor{AccentGold}{HTML}{C5A065}
 \definecolor{AlertTerra}{HTML}{C75C5C}
 \definecolor{InfoTeal}{HTML}{2A9D8F}
-\definecolor{SuppBlue}{HTML}{4A90E2}
+\definecolor{SuppBlue}{HTML}{3A6EA5}
 \definecolor{BGCoolGray}{HTML}{F5F7FA}
 \definecolor{TextDark}{HTML}{333333}
 \definecolor{LightGray}{HTML}{CCCCCC}
