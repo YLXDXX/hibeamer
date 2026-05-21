@@ -176,7 +176,6 @@
 }
 \ExplSyntaxOff
 
-%\linespread{1.3} %行间距
 \setbeamersize{text margin left=1cm,text margin right=1cm}
 \setbeamercovered{transparent=15}
 \setbeamertemplate{navigation symbols}{}
