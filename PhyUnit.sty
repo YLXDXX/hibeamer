@@ -1,1 +1,162 @@
-/home/shui/Desktop/LaTex/高考真题/PhyUnit.sty
+%格式声明
+\NeedsTeXFormat{LaTeX2e}[2021-11-15]
+
+\RequirePackage{expl3}
+
+\ProvidesExplPackage{PhyUnit} % Package name
+{2026-04-05} % Release date
+{0.1} % Release version
+{物理单位} % Description
+
+
+
+%
+%物理单位
+%
+
+
+\NewDocumentCommand \UAi {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{\AA}} % Å（长度，埃）
+\NewDocumentCommand \UAm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{A}\cdot\mathrm{m}} % A·m
+\NewDocumentCommand \UA {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{A}} % A （电流）
+\NewDocumentCommand \UAs {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{A}/\mathrm{s}} % A/s （电流强度变化率）
+\NewDocumentCommand \UAcdots {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{A}\cdot\mathrm{s}} % A·s （同电荷单位库仑）
+\NewDocumentCommand \UatmLmolK {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{atm}\cdot\mathrm{L}/(\mathrm{mol}\cdot\mathrm{K})} % atm·L/(mol·K) （理想气体状态方程 pV=nRT 中 R 的单位）
+\NewDocumentCommand \Uatm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{atm}} % atm （压强单位，标准大气压）
+\NewDocumentCommand \Ucal {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{cal}} % cal （卡路里，简称卡，符号 cal，热量的旧单位）
+\NewDocumentCommand \UdC {o} {\str_if_eq:nnTF{#1}{a}{}{\;}{}^\circ\mathrm{C}} % ℃ (温度单位，摄氏度，degree Celsius，简写为dC)
+\NewDocumentCommand \UduC {o} {\str_if_eq:nnTF{#1}{a}{}{\;}{}^\circ\mathrm{C}} % ℃ (温度单位，摄氏度，简写为duC)
+\NewDocumentCommand \UCkg {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{C}/\mathrm{kg}} % C/kg （电荷与质量之比，荷质比）
+\NewDocumentCommand \Ucmc {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{cm}^3} % cm^3 （体积）
+\NewDocumentCommand \UCmol {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{C}/\mathrm{mol}} % C/mol （法拉第恒量 F）
+\NewDocumentCommand \Ucmq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{cm}^2} % cm^2 （面积）
+\NewDocumentCommand \Ucm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{cm}} % cm （长度）
+\NewDocumentCommand \Ucmsq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{cm}/\mathrm{s}^2} % cm/s^2 （加速度）
+\NewDocumentCommand \Ucms {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{cm}/\mathrm{s}} % cm/s （速度）
+\NewDocumentCommand \UC {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{C}} % C （电荷量）
+\NewDocumentCommand \UCV {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{C}/\mathrm{V}} % C/V （同电容）
+\NewDocumentCommand \UdB {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{dB}} % dB （声音强弱）
+\NewDocumentCommand \Udmc {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{dm}^3} % dm^3 （体积）
+\NewDocumentCommand \Udm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{dm}} % dm （长度）
+\NewDocumentCommand \Udu {o} {\,{}^\circ} % ° （角度单位）
+\NewDocumentCommand \Udyn {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{dyn}} % dyn （力单位）
+\NewDocumentCommand \Uerg {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{erg}} % erg （能量单位）
+\NewDocumentCommand \Ue {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{e}} % e （元电荷）
+\NewDocumentCommand \UeV {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{eV}} % eV （能量，电子伏特）
+\NewDocumentCommand \UF {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{F}} % F （电容）
+\NewDocumentCommand \Ug {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{g}} % g （质量）
+\NewDocumentCommand \UHP {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{HP}} % HP （功率单位：马力，horsepower）
+\NewDocumentCommand \UH {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{H}} % H （自感系数）
+\NewDocumentCommand \UHs {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{H}/\mathrm{s}} % H/s （同电阻）
+\NewDocumentCommand \UHz {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{Hz}} % Hz （频率）
+\NewDocumentCommand \UImA {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mA}} % mA （电流）
+\NewDocumentCommand \UJcal {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{J}/\mathrm{cal}} % 热功当量单位
+\NewDocumentCommand \UJcdots {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{J}\cdot\mathrm{s}} % J·s（普朗克常数 h 单位）
+\NewDocumentCommand \UJC {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{J}/\mathrm{C}} % J/C （同电压）
+\NewDocumentCommand \UJkgdC {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{J}/(\mathrm{kg}\cdot{}^\circ\mathrm{C})} % 比热 J/(kg·℃)
+\NewDocumentCommand \UJkgK {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{J}/(\mathrm{kg}\cdot\mathrm{K})} % 比热 J/(kg·K)
+\NewDocumentCommand \UJkg {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{J}/\mathrm{kg}} % J/kg （熔解热、汽化热）
+\NewDocumentCommand \UJmolK {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{J}/(\mathrm{mol}\cdot\mathrm{K})} % J/(mol·K) （摩尔气体恒量 R 单位）
+\NewDocumentCommand \UJ {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{J}} % J （能量，功）
+\NewDocumentCommand \UJs {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{J}/\mathrm{s}} % J/s （功率）
+\NewDocumentCommand \UkgC {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kg}/\mathrm{C}} % kg/C （电化当量）
+\NewDocumentCommand \Ukgf {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kgf}} % kgf （千克力）
+\NewDocumentCommand \Ukgmc {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kg}/\mathrm{m}^3} % kg/m^3 （密度）
+\NewDocumentCommand \Ukgmol {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kg}/\mathrm{mol}} % kg/mol （摩尔质量单位，化学当量）
+\NewDocumentCommand \Ukgmsq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kg}\cdot\mathrm{m}/\mathrm{s}^2} % kg·m/s^2 （力的单位，F=ma）
+\NewDocumentCommand \Ukgmqsq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kg}\cdot\mathrm{m}^2\cdot\mathrm{s}^{-2}} % kg·m^2/s^2 （能号的单位，J）
+\NewDocumentCommand \Ukgms {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kg}\cdot\mathrm{m}/\mathrm{s}} % kg·m/s （冲量动量单位，p=mv）
+\NewDocumentCommand \Ukg {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kg}} % kg （质量）
+\NewDocumentCommand \Ukgs {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kg}/\mathrm{s}} % kg/s
+\NewDocumentCommand \UkHz {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kHz}} % kHz （频率）
+\NewDocumentCommand \UkJkg {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kJ}/\mathrm{kg}} % kJ/kg （熔解热、汽化热）
+\NewDocumentCommand \Ukmh {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{km}/\mathrm{h}} % km/h （速度）
+\NewDocumentCommand \Ukmsq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{km}/\mathrm{s}^2} % km/s^2 （加速度）
+\NewDocumentCommand \Ukms {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{km}/\mathrm{s}} % km/s （速度）
+\NewDocumentCommand \UkO {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{k}\Omega} % kΩ （电阻）
+\NewDocumentCommand \UK {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{K}} % K （热力学温度）
+\NewDocumentCommand \UkW {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kW}} % kW （功率）
+\NewDocumentCommand \UL {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{L}} % L （容积单位，升）
+\NewDocumentCommand \Umcmol {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{m}^3/\mathrm{mol}} % m^3/mol （摩尔体积）
+\NewDocumentCommand \ULmol {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{L}/\mathrm{mol}} % L/mol （摩尔休积，升每摩尔）
+\NewDocumentCommand \Umc {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{m}^3} % m^3 （体积）
+\NewDocumentCommand \Umcs {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{m}^3/\mathrm{s}} % m^3/s （抽水速度）
+\NewDocumentCommand \UMeV {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{MeV}} % MeV （能量，兆电子伏特）
+\NewDocumentCommand \UmH {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mH}} % mH （自感系数）
+\NewDocumentCommand \UMHz {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{MHz}} % MHz （频率）
+\NewDocumentCommand \Ummc {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mm}^3} % mm^3 （体积）
+\NewDocumentCommand \UmmHg {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mmHg}} % mmHg （压强单位，毫米汞柱）
+\NewDocumentCommand \UcmHg {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{cmHg}} % cmHg （压强单位，厘米汞柱）
+\NewDocumentCommand \Ummq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mm}^2} % mm^2 （面积）
+\NewDocumentCommand \Umm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mm}} % mm （长度）
+\NewDocumentCommand \Umnc {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{m}^{-3}} % m^{-3} （体积倒数）
+\NewDocumentCommand \Umn {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{m}^{-1}} % m^{-1} （长度 m 的倒数）
+\NewDocumentCommand \Umnq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{m}^{-2}} % m^{-2} （长度 m 的倒数）
+\NewDocumentCommand \Umolnc {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mol}^{-3}} % mol^{-3}（物理的量倒数）
+\NewDocumentCommand \Umolnq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mol}^{-2}} % mol^{-2} （物理的量倒数）
+\NewDocumentCommand \Umoln {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mol}^{-1}} % mol^{-1} （物理的量倒数）
+\NewDocumentCommand \Umol {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mol}} % mol （物质的量）
+\NewDocumentCommand \UMO {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{M}\Omega} % MΩ （电阻）
+\NewDocumentCommand \Umq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{m}^2} % m^2 （面积）
+\NewDocumentCommand \Um {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{m}} % m （长度）
+\NewDocumentCommand \Umsq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{m}/\mathrm{s}^2} % m/s^2 （加速度）
+\NewDocumentCommand \Ums {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{m}/\mathrm{s}} % m/s （速度）
+\NewDocumentCommand \Uum {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mu\mathrm{m}} % μm （长度，微米）
+\NewDocumentCommand \UNAq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}/\mathrm{A}^2} % N/A^2 （直导线电流产生磁场的比例系数 B=kI/r）
+\NewDocumentCommand \UNC {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}/\mathrm{C}} % N/C （电场强度）
+\NewDocumentCommand \UnF {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{nF}} % nF （电容）
+\NewDocumentCommand \UNkg {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}/\mathrm{kg}} % N/kg
+\NewDocumentCommand \UNmqCq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}\cdot\mathrm{m}^2/\mathrm{C}^2} % N·m^2/C^2 （静电力常量 k）
+\NewDocumentCommand \UNmqkgq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}\cdot\mathrm{m}^2/\mathrm{kg}^2} % N·m^2/kg^2 (万有引力常量 G 单位)
+\NewDocumentCommand \UNmq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}/\mathrm{m}^2} % N/m^2 （压强）
+\NewDocumentCommand \UNcdotm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}\cdot\mathrm{m}} % N·m （力矩）
+\NewDocumentCommand \UN {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}} % N （力）
+\NewDocumentCommand \UNm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}/\mathrm{m}} % N/m （弹簧劲度系数）
+\NewDocumentCommand \UNcm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}/\mathrm{cm}} % N/cm （弹簧劲度系数）
+\NewDocumentCommand \UNs {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{N}\cdot\mathrm{s}} % N·s （动量，冲量）
+\NewDocumentCommand \UOm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\Omega\cdot\mathrm{m}} % Ω·m （电阻率）
+\NewDocumentCommand \UO {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\Omega} % Ω （电阻）
+\NewDocumentCommand \UOs {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\Omega\cdot\mathrm{s}} % Ω·s （同自感系数）
+\NewDocumentCommand \UPa {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{Pa}} % Pa （压强）
+\NewDocumentCommand \UpF {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{pF}} % pF （电容）
+\NewDocumentCommand \UsF {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{s}/\mathrm{F}} % s/F （同电阻）
+\NewDocumentCommand \Uspace {o} {\str_if_eq:nnTF{#1}{a}{}{\;}} % 物理单位的空格
+\NewDocumentCommand \Usq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{s}^2} % s^2
+\NewDocumentCommand \Us {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{s}} % s （时间）
+\NewDocumentCommand \Usn {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{s}^{-1}} % s^{-1} （时间倒数）
+\NewDocumentCommand \UsVC {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{s}\cdot\mathrm{V}/\mathrm{C}} % s·V/C （同电阻）
+\NewDocumentCommand \UTmq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{T}\cdot\mathrm{m}^2} % T·m^2 （同磁通量）
+\NewDocumentCommand \UT {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{T}} % T （磁感应强度，特斯拉）
+\NewDocumentCommand \UTm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{T}/\mathrm{m}} % T/m 磁场随距离变化系数
+\NewDocumentCommand \UuA {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mu\mathrm{A}} % μA （电流，微安）
+\NewDocumentCommand \UmA {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mA}} % mA （电流，毫安）
+\NewDocumentCommand \Uu {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{u}} % u （原子质量单位）
+\NewDocumentCommand \UuF {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mu\mathrm{F}} % uF （电容）
+\NewDocumentCommand \UuH {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mu\mathrm{H}} % μH （自感系数）
+\NewDocumentCommand \UVm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{V}/\mathrm{m}} % V/m （同电场强度）
+\NewDocumentCommand \UV {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{V}} % V （电压）
+\NewDocumentCommand \UVsA {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{V}\cdot\mathrm{s}/\mathrm{A}} % V·s/A （同自感系数）
+\NewDocumentCommand \UVA {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{V}/\mathrm{A}} % V/A （同电阻）
+\NewDocumentCommand \UWbmq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{Wb}/\mathrm{m}^2} % Wb/m^2 （磁通密度，同磁感应强度）
+\NewDocumentCommand \UWb {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{Wb}} % Wb （磁通量）
+\NewDocumentCommand \UWbs {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{Wb}/\mathrm{s}} % Wb/s （同电压）
+\NewDocumentCommand \UWmq {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{W}/\mathrm{m}^2} % W/m^2
+\NewDocumentCommand \UW {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{W}} % W （功率）
+\NewDocumentCommand \UmL {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mL}} % mL （体积）
+\NewDocumentCommand \Unm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{nm}} % nm （长度）
+\NewDocumentCommand \Umin {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{min}} % min （时间）
+\NewDocumentCommand \Ukm {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{km}} % km （长度）
+\NewDocumentCommand \UkV {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kV}} % kV （电压）
+\NewDocumentCommand \UkPa {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kPa}} % kPa （压强）
+\NewDocumentCommand \Uimp {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{imp}} % imp （体积，容量）
+\NewDocumentCommand \Urad {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{rad}} % rad （弧度）
+\NewDocumentCommand \Urads {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{rad}/\mathrm{s}} % rad/s （角速度）
+\NewDocumentCommand \Uradmin {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{rad}/\mathrm{min}} % rad/min （角速度）
+\NewDocumentCommand \UkJ {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kJ}} % kJ （能量，热量）
+\NewDocumentCommand \Uh {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{h}} % h （时间）
+\NewDocumentCommand \UkWh {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{kW}\cdot\mathrm{h}} % kW·h （电能，度）
+\NewDocumentCommand \UmAh {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{mA}\cdot\mathrm{h}} % mA·h （电池容量）
+\NewDocumentCommand \Urmin {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{r}/\mathrm{min}} % r/min （转速）
+\NewDocumentCommand \Urs {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{r}/\mathrm{s}} % r/s （转速）
+\NewDocumentCommand \UAU {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{AU}} % AU （天文单位）
+\NewDocumentCommand \Ucd {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{cd}} % cd 发光强度
+\NewDocumentCommand \Ut {o} {\str_if_eq:nnTF{#1}{a}{}{\;}\mathrm{t}} % t 质量单位（吨）
