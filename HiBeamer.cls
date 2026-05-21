@@ -4,6 +4,7 @@
 % ==========================================
 % 模块一：类声明与基础配置
 % ==========================================
+\RequirePackage{l3keys2e}
 
 \ExplSyntaxOn
 \bool_new:N \g__highend_random_quote_bool
@@ -20,7 +21,7 @@
   handout .default:n = true,
   handout .initial:n = false,
 }
-\ProcessKeyOptions { highendbeamer }       % 处理传入的选项
+\ProcessKeysOptions { highendbeamer }       % 处理传入的选项
 
 % --- 讲义模式处理 ---
 \bool_if:NT \g__highend_handout_bool {
