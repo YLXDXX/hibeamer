@@ -1,319 +1,647 @@
 % !TEX program = xelatex
-\documentclass[randomquote=true]{HiBeamer}
-
+% ============================================
+%  HiBeamer 功能测试文档
+%  涵盖模板所有核心功能的测试与演示
+% ============================================
+\documentclass[randomquote=true, quoteseed=2026]{HiBeamer}
 
 \usepackage[answer_shown]{ChoiceQuestion}
 \usepackage{PhyUnit}
 
-\title{高中数理综合讲义}
-\author{授课教师}
+\title{HiBeamer 功能测试文档}
+\author{模板功能测试}
 \date{\today}
-
-
 
 \begin{document}
 
+% ============================================
+%  标题页
+% ============================================
 \begin{frame}[plain]
   \titlepage
 \end{frame}
 
-% --- 在开头插入全局目录 ---
+% ============================================
+%  课程大纲
+% ============================================
 \begin{frame}{课程大纲}
   \tableofcontents
 \end{frame}
 
-\section{力学基础}
+% ============================================
+%  第一节：语义区块环境测试
+% ============================================
+\section{语义区块环境}
 
-\begin{frame}{牛顿第二定律}
-  \begin{defn}[牛顿第二定律]
-    物体的加速度跟物体所受的合外力成正比，跟物体的质量成反比\footnote{这是动量定理在质量不变时的特例。}。
-    \[ \vec{F}_{\text{合}} = m \vec{a} \]
+\begin{frame}{定理与定义 --- \texttt{thm} / \texttt{defn}}
+  \begin{thm}[勾股定理]
+    直角三角形两直角边的平方和等于斜边的平方：
+    \[ a^2 + b^2 = c^2 \]
+  \end{thm}
+
+  \begin{defn}[加速度]
+    加速度是描述物体速度变化快慢的物理量，等于速度的变化量与发生这一变化所用时间的比值：
+    \[ \vec{a} = \frac{\Delta \vec{v}}{\Delta t} \]
   \end{defn}
-
-  \begin{tip}[解题技巧]
-    运用牛顿第二定律时，\hl{正交分解}是最核心的方法。
-  \end{tip}
 \end{frame}
 
-
-\begin{frame}{123}
-123  \xzanswer{B} \tkanswer{填空}
-
-\fourchoices[answer=C]
-{1}
-{2}
-{455676ghfh7}
-{6}
-
-
-
-\end{frame}
-
-
-\begin{frame}{力学基础例题}
-	% 默认继续上次的编号
-	\begin{ExampleList}[0]
-		\item 质量为 $m$ 的物体在水平面上受摩擦力减速，求加速度。
-		
-		\pause
-		\item 关于牛顿第一定律，下列说法正确的是？
-	\end{ExampleList}
-\end{frame}
-
-\begin{frame}{力学基础例题}
-	% 默认继续上次的编号
-	\begin{ExampleList}
-		\item 质量为 $m$ 的物体在水平面上受摩擦力减速，求加速度。
-		\pause 
-		\item 关于牛顿第一定律，下列说法正确的是？
-	\end{ExampleList}
-\end{frame}
-
-
-
-\begin{frame}{综合训练}
-	\begin{ExerciseList}
-		\item 斜面上的物体受力分析综合题。
-		\item 合题11111
-		\item  jkjk
-	\end{ExerciseList}
-	
-\end{frame}
-
-\begin{frame}{title}
-	\begin{ExampleList}
-		
-		\item 质量为 $0.5 \Ukg$ 的0.5 kg 小球碰墙反弹，求冲量。质量为 $0.5\text{kg}$ 的小球碰墙反弹，求冲量。质量为 $0.5\Ukg$ 的小球碰墙反弹，求冲量。
-		\begin{enumerate}
-			\item 量为 $0.5\text{kg}$ 的小球量为 $0.5\text{kg}$ 的小球量为 $0.5\text{kg}$ 的小球量为 $0.5\text{kg}$ 的小球量为 $0.5\text{kg}$ 的小球量为 $0.5\text{kg}$ 的小球
-			量为 $0.5\text{kg}$ 的小球
-			\item 量为 $0.5\text{kg}$ 的小球
-		\end{enumerate}
-		\jdanswer{
-			\begin{enumerate}
-				\item 189
-				\item  ioio
-			\end{enumerate}
-		}
-		
-	\item 质量为 $0.5\text{kg}$ 的小球碰墙反弹，求冲量。质量为 $0.5\text{kg}$ 的小球碰墙反弹，求冲量。质量为 $0.5\Ukg$ 的小球碰墙反弹，求冲量。
-	\begin{enumerate}
-		\item 量为 $0.5\text{kg}$ 的小球量为 $0.5\text{kg}$ 的小球量为 $0.5\text{kg}$ 的小球量为 $0.5\text{kg}$ 的小球量为 $0.5\text{kg}$ 的小球量为 $0.5\text{kg}$ 的小球
-		量为 $0.5\text{kg}$ 的小球
-		\item 量为 $0.5\text{kg}$ 的小球
-	\end{enumerate}
-	\jdanswer{
-		\begin{enumerate}
-			\item 189
-			\item  ioio
-		\end{enumerate}
-	}
-	\end{ExampleList}
-	
-\end{frame}
-
-\begin{frame}{综合训练}
-	\begin{ExampleList}[<+->]
-		\item 斜面上的物体受力分析综合题。
-		\item 合题
-		\item  jkjk
-	\end{ExampleList}
-	\begin{ExerciseList}[<+->]
-		\item 质量为 $0.5\text{kg}$ 的小球碰墙反弹，求冲量。
-		\item 一颗子弹击中木块并留在其中，求共同速度。
-	\end{ExerciseList}
-\end{frame}
-
-
-\begin{frame}{title}
-	\begin{ExampleList}[<+->]
-		\item 斜面上的物体受力分析综合题。
-		\item 合题
-		\item  jkjk
-	\end{ExampleList}
-\end{frame}
-
-\begin{frame}{正交分解法步骤}
-  运用正交分解法解题的标准流程：
-  \begin{itemize}
-  	\item 
-  	90
-  	\item 89
-  \end{itemize}
-  \begin{enumerate}
-    \item 选取坐标系
-    \begin{itemize}
-      \item 沿运动方向（加速度方向）为 $x$ 轴
-      \item 垂直运动方向为 $y$ 轴
-    \end{itemize}
-    \item 对各个力进行分解
-    \item 列出分量方程
+\begin{frame}{重点与警示 --- \texttt{imp} / \texttt{warn}}
+  \begin{imp}[核心考点]
+    动量定理是矢量式，必须规定正方向！解题步骤：
     \begin{enumerate}
-      \item $x$ 轴方向：$F_x = ma_x$       \item $y$ 轴方向：$F_y = 0$ (通常平衡)
-      
-      \begin{enumerate}
-      	\item 133
-      	\item  test
-      \end{enumerate}
-      \begin{itemize}
-      	\item 34
-      	\item 56
-      \end{itemize}
+      \item 选取研究对象
+      \item 规定正方向
+      \item 分析初末状态的动量
+      \item 代入公式 $\vec{I} = \Delta \vec{p}$
     \end{enumerate}
-  \end{enumerate}
+  \end{imp}
+
+  \begin{warn}[易错警示]
+    计算冲量时，\hlwarn{绝不能}直接用 $I = Ft$，除非 $F$ 是恒力！
+    对于变力，只能用动量定理求平均力。
+  \end{warn}
 \end{frame}
 
-\begin{frame}{斜面问题实战}
+\begin{frame}{例题与练习 --- \texttt{eg} / \texttt{ex}}
   \begin{eg}[斜面问题]
     质量为 $m$ 的物体在倾角为 $\theta$ 的斜面上匀速下滑，求动摩擦因数 $\mu$。
   \end{eg}
 
-  受力分析步骤：
-  \begin{itemize}[<+->]
-    \item 确定研究对象
-    \item 受力分析
-    \begin{enumerate}[<+->]
-      \item 重力 $G = mg$ 竖直向下
-      \item 支持力 $N$ 垂直斜面向上 \tkanswer{8989} \tkanswer{8989} 
-      
-      \item 滑动摩擦力 $f$ 沿斜面向上
-      \begin{enumerate}
-      	\item 67
-      	\item 45
-      \end{enumerate}
-    \end{enumerate}
-    \item 建立坐标系并分解力
-  \end{itemize}
+  \begin{ex}[变力问题]
+    质量为 $0.5\Ukg$ 的小球从 $1.8\Um$ 高处自由落体，碰地后反弹高度为 $0.8\Um$，
+    碰撞时间为 $0.01\Us$，求碰撞过程中的平均作用力。
+  \end{ex}
 \end{frame}
 
-\begin{frame}{斜面问题拓展}
+\begin{frame}{技巧与拓展 --- \texttt{tip} / \texttt{supp}}
+  \begin{tip}[解题技巧]
+    运用牛顿第二定律时，\hl{正交分解}是最核心的方法：
+    \begin{itemize}
+      \item 沿运动方向建立 $x$ 轴
+      \item 垂直运动方向建立 $y$ 轴
+      \item 分别列出分量方程
+    \end{itemize}
+  \end{tip}
+
   \begin{supp}[拓展知识]
     如果斜面不是固定的，而是放在光滑水平面上，则需要考虑系统质心运动定理\footnote{此时两者构成的系统在水平方向动量守恒。}。
   \end{supp}
 \end{frame}
 
-\section{动量与冲量}
-
-\begin{frame}{动量定理核心}
-  \begin{imp}[核心考点]
-    动量定理是矢量式，必须规定正方向！
-    \[ \vec{I} = \Delta \vec{p} \]
-  \end{imp}
-
+\begin{frame}{备课笔记与解答 --- \texttt{memo} / \texttt{solve}}
   \begin{memo}[备课笔记]
-    学生常犯错误：忘记 $\Delta \vec{v}$ 是末速度减初速度，尤其是反弹问题中速度方向改变导致的符号问题。
+    学生常犯错误：忘记 $\Delta \vec{v}$ 是末速度减初速度，尤其是反弹问题中
+    速度方向改变导致的符号问题。建议用具体数值示例反复强调。
   \end{memo}
+
+  \begin{solve}
+    以小球为研究对象，规定向下为正方向。
+
+    落地前速度：$v_1 = \sqrt{2gh_1} = \sqrt{2 \times 10 \times 1.8} = 6\Ums$
+
+    反弹后速度：$v_2 = -\sqrt{2gh_2} = -\sqrt{2 \times 10 \times 0.8} = -4\Ums$
+
+    由动量定理：$\bar{F}\Delta t = m v_2 - m v_1$
+
+    $\bar{F} = \frac{0.5 \times (-4 - 6)}{0.01} = -500\UN$
+  \end{solve}
 \end{frame}
 
-\begin{frame}{冲量计算注意}
-  \begin{warn}[易错警示]
-    计算冲量时，\hlwarn{绝不能}直接用 $I = F t$，除非 $F$ 是恒力！对于变力，只能用动量定理求平均力。
-  \end{warn}
+% ============================================
+%  第二节：例题与练习列表
+% ============================================
+\section{例题与练习列表}
 
-  \begin{ex}[变力问题]
-    质量为 $0.5\text{kg}$ 的小球从 $1.8\text{m}$ 高处自由落体，碰地后反弹高度为 $0.8\text{m}$，碰撞时间为 $0.01\text{s}$，求碰撞过程中的平均作用力。
-  \end{ex}
+\begin{frame}{例题列表 --- \texttt{ExampleList}}
+  \begin{ExampleList}[0]
+    \item 质量为 $m$ 的物体在水平面上受摩擦力减速，已知初速度 $v_0$ 和动摩擦因数 $\mu$，
+          求物体滑行的距离。
+    \item 一根轻弹簧上端固定，下端悬挂质量为 $m$ 的物体，弹簧伸长量为 $x$，求弹簧的劲度系数。
+    \item 物体在倾角为 $\theta$ 的斜面上，受水平推力 $F$ 作用而静止，求摩擦力的大小和方向。
+  \end{ExampleList}
 \end{frame}
 
-\begin{frame}{实验与数据分析}
-  验证动量定理的实验数据：
+\begin{frame}{例题跨页连续编号}
+  \begin{ExampleList}
+    \item 光滑水平面上，质量分别为 $m_1$ 和 $m_2$ 的两个物体用轻弹簧连接，
+          压缩弹簧后释放，求两物体的速度之比。
+    \item 质量为 $m$ 的小球用长为 $L$ 的细线悬挂，在最低点给小球一个水平初速度，
+          求小球能上升的最大高度。
+  \end{ExampleList}
+\end{frame}
+
+\begin{frame}{练习列表 --- \texttt{ExerciseList}}
+  \begin{ExerciseList}[0]
+    \item 斜面上的物体受力分析综合题，涉及重力、支持力、摩擦力的合成与分解。
+    \item 弹簧振子的简谐运动分析，求周期、振幅和最大速度。
+  \end{ExerciseList}
+\end{frame}
+
+\begin{frame}{例题 + 练习逐项动画}
+  \begin{ExampleList}[<+->]
+    \item 斜面上的物体受力分析综合题。
+    \item 连接体在光滑水平面上的运动分析。
+  \end{ExampleList}
+
+  \begin{ExerciseList}[<+->]
+    \item 质量为 $0.5\Ukg$ 的小球碰墙反弹，求冲量。
+    \item 一颗子弹水平射入木块并留在其中，求木块的最大速度。
+  \end{ExerciseList}
+\end{frame}
+
+\begin{frame}{练习 + 解答展示}
+  \begin{ExerciseList}
+    \item 质量为 $m$ 的小球从高度 $h$ 处自由下落，与地面碰撞后反弹至 $\frac{h}{4}$ 处，
+          碰撞时间为 $t$，求地面对小球的平均作用力。
+
+    \jdanswer{
+      规定向下为正方向。
+
+      落地前速度：$v_1 = \sqrt{2gh}$
+
+      反弹后速度：$v_2 = -\sqrt{2g \cdot h/4} = -\frac{1}{2}\sqrt{2gh}$
+
+      由动量定理：$(mg - \bar{N})t = m(v_2 - v_1)$
+
+      $\bar{N} = mg + \frac{3m\sqrt{2gh}}{2t}$
+    }
+
+    \item 两个质量分别为 $m_1$、$m_2$ 的物体在光滑水平面上发生完全非弹性碰撞，
+          已知碰前速度分别为 $v_1$、$v_2$（同方向），求碰后共同速度和动能损失。
+
+    \jdanswer{
+      由动量守恒：$m_1 v_1 + m_2 v_2 = (m_1 + m_2)v$
+
+      碰后共同速度：$v = \frac{m_1 v_1 + m_2 v_2}{m_1 + m_2}$
+
+      动能损失：$\Delta E_k = \frac{1}{2}\frac{m_1 m_2}{m_1 + m_2}(v_1 - v_2)^2$
+    }
+  \end{ExerciseList}
+\end{frame}
+
+% ============================================
+%  第三节：选择题与填空题
+% ============================================
+\section{选择题与填空题}
+
+\begin{frame}{选择题 --- \texttt{\textbackslash xzanswer} / \texttt{\textbackslash fourchoices}}
+  关于牛顿第一定律，下列说法正确的是？ \xzanswer{B}
+
+  \fourchoices[answer=B]
+    {物体不受力时，总保持静止状态}
+    {力是改变物体运动状态的原因}
+    {物体运动不需要力来维持的说法是错误的}
+    {力是维持物体运动的原因}
+\end{frame}
+
+\begin{frame}{选择题 --- 多选}
+  关于曲线运动，下列说法正确的是？（多选） \xzanswer{CD}
+
+  \fourchoices[answer=CD]
+    {曲线运动一定是变速运动}
+    {曲线运动的加速度一定变化}
+    {曲线运动的速度方向一定变化}
+    {曲线运动所受合外力一定不为零}
+\end{frame}
+
+\begin{frame}{填空题 --- \texttt{\textbackslash tkanswer}}
+  牛顿第二定律的数学表达式为 \tkanswer{$\vec{F}=m\vec{a}$}。
+
+  \vspace{1em}
+
+  动能的定义式为 \tkanswer{$E_k = \frac{1}{2}mv^2$}，国际单位是 \tkanswer{焦耳（J）}。
+
+  \vspace{1em}
+
+  万有引力定律的表达式为 \tkanswer{$F = G\frac{m_1 m_2}{r^2}$}，其中引力常量
+  $G$ 的数值为 \tkanswer{$6.67 \times 10^{-11}\UNmqkgq$}。
+\end{frame}
+
+% ============================================
+%  第四节：多层列表与排版
+% ============================================
+\section{多层列表与排版}
+
+\begin{frame}{无序列表 --- \texttt{itemize} 三层嵌套}
+  以下为三层无序列表的测试：
+  \begin{itemize}
+    \item 第一层第一项
+    \begin{itemize}
+      \item 第二层第一项
+      \begin{itemize}
+        \item 第三层第一项：颜色由金到藏青再到灰色，符号由方块到三角再到圆点
+        \item 第三层第二项：行间距合理，排版紧凑但不拥挤
+      \end{itemize}
+      \item 第二层第二项
+    \end{itemize}
+    \item 第一层第二项
+    \begin{itemize}
+      \item 第二层第三项
+      \item 第二层第四项：包含较长的文字，测试在文字内容较多的
+            情况下列表的自动换行效果，确保第二行能正确对齐到相同缩进位置
+    \end{itemize}
+    \item 第一层第三项
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{有序列表 --- \texttt{enumerate} 三层嵌套}
+  以下为三层有序列表的测试：
+  \begin{enumerate}
+    \item 建立坐标系
+    \begin{enumerate}
+      \item 沿加速度方向为 $x$ 轴正方向
+      \item 垂直 $x$ 轴为 $y$ 轴正方向
+      \begin{enumerate}
+        \item $x$ 轴方向：$F_x = ma_x$
+        \item $y$ 轴方向：$F_y = 0$（通常平衡）
+        \item 检查方程组是否完备
+      \end{enumerate}
+    \end{enumerate}
+    \item 分析各方向上的受力
+    \begin{enumerate}
+      \item 列出 $x$ 轴方向的合外力表达式
+      \item 列出 $y$ 轴方向的合外力表达式
+    \end{enumerate}
+    \item 联立方程求解
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{混合嵌套与深层结构}
+  \begin{enumerate}
+    \item 选取坐标系
+    \begin{itemize}
+      \item 沿运动方向为 $x$ 轴
+      \item 垂直运动方向为 $y$ 轴
+    \end{itemize}
+    \item 对各个力进行正交分解
+    \begin{enumerate}
+      \item 将不在坐标轴上的力分解到 $x$、$y$ 两个方向上
+      \item 写出分量表达式
+      \begin{itemize}
+        \item 重力分量：$G_x = mg\sin\theta$，$G_y = -mg\cos\theta$
+        \item 摩擦力方向与相对运动方向相反
+      \end{itemize}
+      \item 检查所有力的分量是否完整
+    \end{enumerate}
+    \item 列出分量方程并求解未知量
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{逐项动画 --- \texttt{[<+->]}}
+  以下列表将逐步显示（每次点击显示一项）：
+  \begin{itemize}[<+->]
+    \item 确定研究对象
+    \item 受力分析，画出受力图
+    \item 建立坐标系
+    \item 列出分量方程
+    \item 联立求解
+    \item 检验与讨论
+  \end{itemize}
+
+  \vspace{0.5em}
+
+  \begin{enumerate}[<+->]
+    \item 重力 $G = mg$，方向竖直向下
+    \item 支持力 $N$，方向垂直斜面向上
+    \item 滑动摩擦力 $f = \mu N$，方向沿斜面向上
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{脚注与参考文献}
+  牛顿第二定律\footnote{这是动量定理在质量不变时的特例。}是经典力学的核心定律之一。
+
+  万有引力定律\footnote{适用于任意两个质点之间，引力方向沿两质点连线。}揭示了天体运行与地面物体运动的统一规律。
+
+  质点\footnote{在某些问题中，可忽略物体的形状和大小，视为有质量的点。}是力学中常用的简化模型。
+
+  \begin{itemize}
+    \item 气垫导轨\footnote{利用压缩空气在导轨与滑块之间形成气膜，大幅减小摩擦力的实验装置。}是验证动量定理的常用设备。
+    \item 光电门\footnote{通过遮光条挡住光线的时间来测量物体的速度。遮光条越窄，测量的瞬时速度越精确。}用于测量瞬时速度。
+  \end{itemize}
+\end{frame}
+
+% ============================================
+%  第五节：物理单位
+% ============================================
+\section{物理单位}
+
+\begin{frame}{常用力学单位}
+  以下为常用力学单位宏的使用演示：
+
+  \begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    物理量   & 命令          & 渲染结果 \\
+    \midrule
+    质量     & \texttt{\textbackslash Ukg}  & $\Ukg$ \\
+    长度     & \texttt{\textbackslash Um}   & $\Um$ \\
+    时间     & \texttt{\textbackslash Us}   & $\Us$ \\
+    速度     & \texttt{\textbackslash Ums}  & $\Ums$ \\
+    加速度   & \texttt{\textbackslash Umsq} & $\Umsq$ \\
+    力       & \texttt{\textbackslash UN}   & $\UN$ \\
+    功/能量  & \texttt{\textbackslash UJ}   & $\UJ$ \\
+    功率     & \texttt{\textbackslash UW}   & $\UW$ \\
+    压强     & \texttt{\textbackslash UPa}  & $\UPa$ \\
+    频率     & \texttt{\textbackslash UHz}  & $\UHz$ \\
+    角度     & \texttt{\textbackslash Udu}  & $\Udu$ \\
+    弧度     & \texttt{\textbackslash Urad} & $\Urad$ \\
+    角速度   & \texttt{\textbackslash Urads}& $\Urads$ \\
+    牛顿·秒  & \texttt{\textbackslash UNs}  & $\UNs$ \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}{电学与热学单位}
+  \begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    物理量       & 命令            & 渲染结果 \\
+    \midrule
+    电流         & \texttt{\textbackslash UA}   & $\UA$ \\
+    电压         & \texttt{\textbackslash UV}   & $\UV$ \\
+    电阻         & \texttt{\textbackslash UO}   & $\UO$ \\
+    电容         & \texttt{\textbackslash UF}   & $\UF$ \\
+    电荷量       & \texttt{\textbackslash UC}   & $\UC$ \\
+    磁感应强度   & \texttt{\textbackslash UT}   & $\UT$ \\
+    磁通量       & \texttt{\textbackslash UWb}  & $\UWb$ \\
+    自感系数     & \texttt{\textbackslash UH}   & $\UH$ \\
+    能量（电子伏特）& \texttt{\textbackslash UeV} & $\UeV$ \\
+    温度（摄氏度）  & \texttt{\textbackslash UdC} & $\UdC$ \\
+    物质的量     & \texttt{\textbackslash Umol} & $\Umol$ \\
+    升           & \texttt{\textbackslash UL}   & $\UL$ \\
+    克           & \texttt{\textbackslash Ug}   & $\Ug$ \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}{单位在公式中的使用}
+  % 测试带空格和不带空格的单位
+  质量为 $0.5\Ukg$ 的物体（自动带空格）。
+
+  速度为 $10\Ums$（复合单位自动排版）。
+
+  加速度为 $2\Umsq$。
+
+  力为 $5\UN$。
+
+  \[ F = 0.5\Ukg \times 2\Umsq = 1\UN \]
+
+  使用可选参数 \texttt{[a]} 紧贴数字：
+
+  $0.5\Ukg$（有空格） vs $0.5$\Ukg[a]（无空格）
+
+  \vspace{1em}
+
+  % 复合单位
+  荷质比：$e/m_e = 1.76 \times 10^{11}\UCkg$
+
+  电阻率：$\rho = 1.7 \times 10^{-8}\UOm$
+
+  静电力常量：$k = 9.0 \times 10^9\UNmqCq$
+\end{frame}
+
+% ============================================
+%  第六节：图表与公式
+% ============================================
+\section{图表与公式}
+
+\begin{frame}{三线表与公式编号}
+  验证动量定理的实验数据如下：
 
   \vspace{0.3cm}
   \begin{table}
     \centering
     \begin{tabular}{cccc}
       \toprule
-      次数 & 质量 $m/\text{kg}$ & 速度变化 $\Delta v/(\text{m/s})$ & 时间 $\Delta t/\text{s}$ \\
+      次数 & 质量 $m/\Ukg$ & 速度变化 $\Delta v/(\Ums)$ & 时间 $\Delta t/\Us$ \\
       \midrule
       1 & 0.50 & 6.0 & 0.12 \\
       2 & 0.50 & 8.0 & 0.16 \\
       3 & 1.00 & 6.0 & 0.24 \\
+      4 & 1.00 & 3.0 & 0.06 \\
       \bottomrule
     \end{tabular}
-    \caption{实验数据}
+    \caption{实验数据记录表}
   \end{table}
 \end{frame}
 
-\begin{frame}{实验注意事项}
-  \begin{itemize}
-    \item 气垫导轨的调平\footnote{若未调平，重力分量会参与冲量计算，导致系统误差。遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，}
-    \item 光电门间距的准确测量
-    \item 遮光条宽度的补偿。遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确
-    \begin{itemize}
-      \item 遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确
-      \item 但过窄会导致计时误差增大
-    \end{itemize}
-  \end{itemize}
+\begin{frame}{公式编号测试}
+  牛顿第二定律：
+  \begin{equation}
+    \vec{F} = m \vec{a}
+  \end{equation}
+
+  动能定理：
+  \begin{equation}
+    W_{\text{合}} = \Delta E_k = \frac{1}{2}mv_2^2 - \frac{1}{2}mv_1^2
+  \end{equation}
+
+  动量定理：
+  \begin{equation}
+    \vec{I} = \vec{F}\Delta t = \Delta \vec{p} = m\vec{v}_2 - m\vec{v}_1
+  \end{equation}
 \end{frame}
 
-\begin{frame}{图像法应用}
-  利用 $F-t$ 图像求冲量（面积法）：
-To use a beamer-font, you can use the command.
-利用 $F-t$ 图像求冲量（面积法）：
-To use a beamer-font, you can use the command.
-利用 $F-t$ 图像求冲量（面积法）：
-To use a beamer-font, you can use the command.
+\begin{frame}{TikZ 绘图 --- \texttt{highend-*} 样式}
+  利用 $F\text{-}t$ 图像求冲量（面积法）：
+
   \begin{figure}
+    \centering
     \begin{tikzpicture}
       \draw[highend-grid] (-0.5,-0.5) grid (4,3);
-      \draw[highend-axis] (-0.5,0) -- (4.5,0) node[right] {$t/\text{s}$};
-      \draw[highend-axis] (0,-0.5) -- (0,3.5) node[above] {$F/\text{N}$};
-      % 变力曲线
-      \draw[highend-curve, domain=0:4, samples=50] plot (\x, {0.2*(\x)*(\x)});
-      % 辅助线
-      \draw[highend-aux] (4,0) -- (4,3.2);
-      \node[below, font=\small] at (4,0) {$t_1$};
-      \node[left, font=\small] at (0,3.2) {$F_1$};
-      % 面积标注
-      \node[text=AccentGold, font=\bfseries] at (2, 1) {阴影面积 $= I$};
-      \fill[AccentGold, opacity=0.1] (0,0) -- plot[domain=0:4, samples=50] (\x, {0.2*(\x)*(\x)}) -- (4,0) -- cycle;
+      \draw[highend-axis] (-0.5,0) -- (4.5,0) node[right] {$t/\Us$};
+      \draw[highend-axis] (0,-0.5) -- (0,3.5) node[above] {$F/\UN$};
+      \draw[highend-curve, domain=0:4, samples=50]
+        plot (\x, {0.5*(\x)*exp(-0.3*\x)});
+      \draw[highend-aux] (2,0) node[below] {$t_1$} -- (2,{0.5*2*exp(-0.6)});
+      \draw[highend-aux] (0,{0.5*2*exp(-0.6)}) node[left] {$F_{\max}$}
+        -- (2,{0.5*2*exp(-0.6)});
+      \node[text=AccentGold, font=\bfseries] at (2.5, 1.5) {阴影面积 $= I$};
+      \fill[AccentGold, opacity=0.12] (0,0)
+        -- plot[domain=0:4, samples=50] (\x, {0.5*(\x)*exp(-0.3*\x)})
+        -- (4,0) -- cycle;
     \end{tikzpicture}
-    \caption{图像求冲量}
+    \caption{变力 $F\text{-}t$ 图像求冲量}
   \end{figure}
 \end{frame}
 
-
-\begin{frame}{图表与公式编号测试}
+\begin{frame}{子图测试}
   \begin{columns}[T]
     \begin{column}{0.5\linewidth}
-    牛顿第二定律：遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，
-      % 测试图与子图
       \begin{figure}
         \centering
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.85\textwidth}
           \centering
-          \begin{tikzpicture}
-            \draw[highend-axis] (-0.2,0) -- (2.2,0);
+          \begin{tikzpicture}[scale=0.8]
+            \draw[highend-axis] (-0.2,0) -- (2.5,0);
+            \draw[highend-axis] (0,-0.2) -- (0,4.2);
             \draw[highend-curve, domain=0:2] plot (\x, {\x*\x});
           \end{tikzpicture}
-          \caption{抛物线}
+          \caption{二次函数 $y = x^2$}
         \end{subfigure}
-        \hfill
-        \begin{subfigure}[b]{0.45\textwidth}
+
+        \begin{subfigure}[b]{0.85\textwidth}
           \centering
-          \begin{tikzpicture}
-            \draw[highend-axis] (-0.2,0) -- (2.2,0);
-            \draw[highend-curve, domain=0:1.5] plot (\x, {exp(\x)});
+          \begin{tikzpicture}[scale=0.8]
+            \draw[highend-axis] (-0.2,0) -- (2.5,0);
+            \draw[highend-axis] (0,-0.2) -- (0,4.2);
+            \draw[highend-curve, domain=0:1.4] plot (\x, {exp(\x)});
           \end{tikzpicture}
-          \caption{指数函数}
+          \caption{指数函数 $y = e^x$}
         \end{subfigure}
-        \caption{基本初等函数示例}
+        \caption{基本初等函数}
       \end{figure}
     \end{column}
 
     \begin{column}{0.45\linewidth}
-      % 测试带编号的公式
-      牛顿第二定律：遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确遮光条越窄
-      \begin{equation}
-        \vec{F} = m \vec{a}
-      \end{equation}
-      动能定理：
-      \begin{equation}
-        W_{\text{合}} = \Delta E_k
-      \end{equation}
-      度测量越精确遮光条越窄，速度测量越精确遮光条越窄，速度测量越精确
+      \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.85\textwidth}
+          \centering
+          \begin{tikzpicture}[scale=0.8]
+            \draw[highend-axis] (-0.2,0) -- (4.5,0);
+            \draw[highend-axis] (0,-2.2) -- (0,2.2);
+            \draw[highend-curve, domain=0.3:4] plot (\x, {ln(\x)});
+          \end{tikzpicture}
+          \caption{对数函数 $y = \ln x$}
+        \end{subfigure}
+
+        \begin{subfigure}[b]{0.85\textwidth}
+          \centering
+          \begin{tikzpicture}[scale=0.8]
+            \draw[highend-axis] (-0.2,0) -- (4.5,0);
+            \draw[highend-axis] (0,-1.5) -- (0,1.5);
+            \draw[highend-curve, domain=0:4, samples=100]
+              plot (\x, {sin(\x r)});
+          \end{tikzpicture}
+          \caption{正弦函数 $y = \sin x$}
+        \end{subfigure}
+        \caption{超越函数}
+      \end{figure}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{双栏布局 --- \texttt{columns} 环境}
+  \begin{columns}[T]
+    \begin{column}{0.48\linewidth}
+      \begin{defn}[动能]
+        物体因运动而具有的能量：
+        \begin{equation}
+          E_k = \frac{1}{2}mv^2
+        \end{equation}
+      \end{defn}
+
+      \begin{tip}
+        动能是标量（无方向性），单位与功相同，为焦耳（$\UJ$）。
+      \end{tip}
+    \end{column}
+
+    \begin{column}{0.48\linewidth}
+      \begin{defn}[重力势能]
+        物体被举高而具有的能量（选地面为零势面）：
+        \begin{equation}
+          E_p = mgh
+        \end{equation}
+      \end{defn}
+
+      \begin{warn}
+        势能是相对量！零势面的选取\hl{不同}，数值不同。
+      \end{warn}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ============================================
+%  第七节：行内命令与其它功能
+% ============================================
+\section{行内命令与其它功能}
+
+\begin{frame}{高亮命令 --- \texttt{\textbackslash hl} / \texttt{\textbackslash hlwarn}}
+  模板提供两种行内高亮命令：
+
+  \vspace{0.5em}
+  正交分解法是解决力学问题 \hl{最重要} 的方法之一，
+  需要 \hl{反复练习} 才能 \hl{熟练掌握}。
+
+  \vspace{1em}
+  注意：计算功的公式 $W = Fs\cos\theta$ 中，\hlwarn{$\theta$ 是力与位移方向的夹角}，
+  而 \hlwarn{不是}力与斜面的夹角。
+
+  \vspace{1em}
+  \texttt{\textbackslash hl} 用于强调重点{\hl{金色加粗}}，
+  \texttt{\textbackslash hlwarn} 用于警示易错点{\hlwarn{红色加粗}}。
+\end{frame}
+
+\begin{frame}{中文圈数字与罗马数字}
+  % 测试中文圈数字（已在 HiBeamer.cls 中修复了显示问题）
+  以下为中文圈数字测试：① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩
+
+  \vspace{1em}
+  以下为罗马数字测试：Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ Ⅹ
+
+  \vspace{1em}
+  在实际使用中，圈数字可用于标注子步骤，罗马数字可用于大题编号：
+
+  \begin{enumerate}
+    \item[Ⅰ.] 第一部分：基础概念
+    \begin{enumerate}
+      \item[①] 力的定义
+      \item[②] 力的三要素
+    \end{enumerate}
+    \item[Ⅱ.] 第二部分：受力分析
+    \begin{enumerate}
+      \item[①] 隔离法
+      \item[②] 整体法
+    \end{enumerate}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{\texttt{description} 环境}
+  使用 \texttt{description} 环境对术语进行解释：
+
+  \begin{description}
+    \item[质点] 在某些问题中，可忽略物体的形状和大小，视为有质量的点。
+    \item[刚体] 在任何外力作用下，形状和大小保持不变的物体（理想模型）。
+    \item[惯性系] 牛顿运动定律成立的参考系。
+    \item[非惯性系] 牛顿运动定律不成立的参考系，需引入惯性力。
+  \end{description}
+\end{frame}
+
+\begin{frame}{\texttt{pause} 与分步显示}
+  使用 \texttt{\textbackslash pause} 命令控制内容的分步展示：
+
+  \begin{enumerate}
+    \item 第一步：此处立即显示。
+    \pause
+    \item 第二步：点击后才出现。
+    \pause
+    \item 第三步：
+    \begin{itemize}
+      \item 子项也会正确显示和隐藏
+      \pause
+      \item 再点一次才出现本项
+    \end{itemize}
+    \pause
+    \item 第四步：全部展示完毕。
+  \end{enumerate}
+\end{frame}
+
+% ============================================
+%  结束页
+% ============================================
+\begin{frame}[plain]
+  \vfill
+  \begin{center}
+    {\usebeamerfont{title}\textcolor{PrimaryNavy}{感谢使用 HiBeamer}}
+
+    \vspace{1cm}
+
+    {\large\textcolor{LightGray}{--- 极简 · 克制 · 高级感 ---}}
+  \end{center}
+  \vfill
 \end{frame}
 
 \end{document}
