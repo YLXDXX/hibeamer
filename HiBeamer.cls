@@ -98,8 +98,7 @@
 % 西文字体与数学字体
 \setsansfont{TeX Gyre Heros}
 \setmainfont{TeX Gyre Pagella}
-\setmathfont{Latin Modern Math}
-\setmathfont{TeX Gyre Pagella Math}[range={cal,bfcal}]
+\setmathfont{TeX Gyre Pagella Math}
 
 
 % 中文字体 (需系统安装思源字体)
