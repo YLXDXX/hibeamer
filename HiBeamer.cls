@@ -99,7 +99,7 @@
 \setsansfont{TeX Gyre Heros}
 \setmainfont{TeX Gyre Pagella}
 \setmathfont{Latin Modern Math}
-\setmathfont{TeX Gyre Pagella Math}[range={cal,bfcal},StylisticSet=1]
+\setmathfont{TeX Gyre Pagella Math}[range={cal,bfcal}]
 
 
 % 中文字体 (需系统安装思源字体)
