@@ -246,7 +246,7 @@
 % ==========================================
 \setbeamertemplate{itemize item}{\textcolor{AccentGold}{\raisebox{0.2ex}{\tiny$\blacksquare$}}}
 \setbeamertemplate{itemize subitem}{\textcolor{PrimaryNavy}{\raisebox{0.1ex}{\tiny$\blacktriangleright$}}}
-\setbeamertemplate{itemize subsubitem}{\textcolor{LightGray}{\tiny$\bullet$}}
+\setbeamertemplate{itemize subsubitem}{\textcolor{PrimaryNavy!40}{\tiny$\bullet$}}
 
 % 关键修复：使用 \insertsubenumlabel 和 \insertsubsubenumlabel
 \setbeamertemplate{enumerate item}{\textcolor{PrimaryNavy}{\bfseries\insertenumlabel.}}
