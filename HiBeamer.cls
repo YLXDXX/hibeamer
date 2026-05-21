@@ -360,7 +360,8 @@
 
 % --- 公式编号样式 ---
 \renewcommand{\theequation}{\textcolor{PrimaryNavy}{\arabic{equation}}}
-\gdef\tagform@#1{\maketag@@@{\textcolor{PrimaryNavy}{(}\ignorespaces #1\unskip\textcolor{PrimaryNavy}{)}}}
+\newtagform{primarynavy}{\textcolor{PrimaryNavy}{(}}{\textcolor{PrimaryNavy}{)}}
+\usetagform{primarynavy}
 
 
 
