@@ -167,7 +167,7 @@
 \NewDocumentCommand \highendshowquote {} {
   \tl_if_empty:NF \g__highend_quote_content_tl {
     \raggedleft
-    \tl_use:N \g__highend_quote_content_tl \\
+    \tl_use:N \g__highend_quote_content_tl \par
     {\footnotesize —— \tl_use:N \g__highend_quote_author_tl
      \tl_if_empty:NF \g__highend_quote_work_tl { ⋅ \tl_use:N \g__highend_quote_work_tl}}\par
   }
