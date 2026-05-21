@@ -112,6 +112,7 @@
 \setbeamerfont{title}{family=\sffamily,series=\bfseries,size=\Large}
 \setbeamerfont{frametitle}{family=\sffamily,series=\bfseries,size=\normalsize}
 \setbeamerfont{section in head/foot}{size=\scriptsize,family=\sffamily}
+\setbeamerfont{footnote}{size=\footnotesize}
 
 % ==========================================
 % 模块三：骨架与导航定制
@@ -186,7 +187,6 @@
   \leavevmode\hbox to \dimexpr\paperwidth-2cm\relax{%
     \usebeamerfont{frametitle}\textcolor{PrimaryNavy}{\insertframetitle}\hfill
     \usebeamerfont{section in head/foot}\textcolor{LightGray}{\insertsection}%
-    \setbeamerfont{footnote}{size=\footnotesize}%
   }%
   \vskip-7pt
   {\noindent\textcolor{PrimaryNavy}{\rule{\dimexpr\paperwidth-2cm\relax}{0.4pt}}}%
