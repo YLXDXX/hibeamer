@@ -218,24 +218,33 @@
   \begingroup
   \setbeamertemplate{headline}{}
   \setbeamertemplate{footline}{}
-
-  \highendgetquote % 触发获取诗句逻辑
+  \highendgetquote
 
   \begin{frame}[noframenumbering,plain]
     \vfill
-    \begin{center}
-      \begin{tikzpicture}
-        \node[text=PrimaryNavy,opacity=0.15,font=\sffamily\bfseries,scale=8] (num) {\insertsectionnumber};
-        \node[below=5mm of num,text=PrimaryNavy,font=\sffamily\bfseries\LARGE] (title) {\insertsection};
-        \draw[AccentGold,line width=2pt] ([xshift=-5mm, yshift=-3mm]title.south west) -- coordinate[pos=1] (lineend) ([xshift=5mm, yshift=-3mm]title.south east);
+    \begin{columns}[c] % [c] 确保两列垂直居中，这是防止溢出的核心
+      % 左侧：巨大数字
+      \begin{column}{0.25\textwidth}
+        \centering
+        \begin{tikzpicture}
+          \node[text=PrimaryNavy, opacity=0.12,
+                font=\sffamily\bfseries, scale=9]{\insertsectionnumber};
+        \end{tikzpicture}
+      \end{column}
+      % 右侧：标题与诗句
+      \begin{column}{0.55\textwidth}
+        \raggedleft % 整个右列右对齐
 
-        % 渲染诗句节点
-        \node[anchor=north east, text width=0.55\textwidth, align=right,
-              font=\rmfamily\small, text=TextDark!40, below=5mm of lineend] {
-          \highendshowquote
-        };
-      \end{tikzpicture}
-    \end{center}
+        {\sffamily\bfseries\LARGE\color{PrimaryNavy} \insertsection}
+
+        \vspace{3mm}
+        % 装饰线：固定宽度6cm（可根据喜好调整为5cm或7cm等）
+        {\color{AccentGold}\rule{6cm}{2pt}}
+
+        \vspace{3mm}
+        {\rmfamily\small\color{TextDark!40} \highendshowquote}
+      \end{column}
+    \end{columns}
     \vfill
   \end{frame}
   \endgroup
