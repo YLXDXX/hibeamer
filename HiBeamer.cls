@@ -392,7 +392,7 @@
 
 \RequirePackage[bodytextleadingratio=1.4]{zhlineskip} %行间距
 
-\setbeamersize{description width=0.5cm} %设置 description 环境前面的缩进
+\setbeamersize{description width=4em} %设置 description 环境前面的缩进
 
 
 % ==========================================
