@@ -16,7 +16,7 @@
 \keys_define:nn { highendbeamer } {
   randomquote .bool_set:N = \g__highend_random_quote_bool,
   randomquote .default:n = true,
-  randomquote .initial:n = true,           % 默认开启随机
+  randomquote .initial:n = false,           % 默认不开启随机
   quoteseed .int_set:N = \g__highend_quote_seed_int,
   quoteseed .initial:n = -1,               % 默认无种子 (真随机)
   handout .bool_set:N = \g__highend_handout_bool,
@@ -24,17 +24,14 @@
   handout .initial:n = false,
   shownav .bool_set:N = \g__highend_show_nav_bool,
   shownav .default:n = true,
-  shownav .initial:n = true,               % 默认显示上下页按钮
+  shownav .initial:n = false,               % 默认不显示上下页按钮
   darkmode .bool_set:N = \g__highend_dark_mode_bool,
   darkmode .default:n = true,
-  darkmode .initial:n = true,              % 默认深色模式（黑板风格）
+  darkmode .initial:n = false,              % 默认浅色模式
 }
 \ProcessKeysOptions { highendbeamer }       % 处理传入的选项
 
-\newif\ifhighendshownav
-\bool_if:NT \g__highend_show_nav_bool { \highendshownavtrue }
-\newif\ifhighenddarkmode
-\bool_if:NT \g__highend_dark_mode_bool { \highenddarkmodetrue }
+
 
 % --- 讲义模式处理 ---
 \bool_if:NT \g__highend_handout_bool {
@@ -94,7 +91,9 @@
 % ==========================================
 % 模块二：色彩与字体定义
 % ==========================================
-\ifhighenddarkmode
+\ExplSyntaxOn
+\bool_if:NTF \g__highend_dark_mode_bool
+{
   % --- 深色模式（黑板风格）---
   \definecolor{PrimaryNavy}{HTML}{78AAD4}
   \definecolor{AccentGold}{HTML}{DFC585}
@@ -111,8 +110,9 @@
   \definecolor{BGDark}{HTML}{1A1D22}
   \definecolor{NavBtnBg}{HTML}{3E4349}
   \definecolor{GridColor}{HTML}{3D4247}
-\else
-  % --- 浅色模式（原版）---
+}
+{
+   % --- 浅色模式（原版）---
   \definecolor{PrimaryNavy}{HTML}{1A2A40}
   \definecolor{AccentGold}{HTML}{C5A065}
   \definecolor{AlertTerra}{HTML}{C75C5C}
@@ -126,7 +126,8 @@
   \definecolor{BGTeal}{HTML}{E8F6F3}
   \definecolor{BGBlue}{HTML}{EBF5FB}
   \definecolor{GridColor}{HTML}{EBEEF0}
-\fi
+}
+\ExplSyntaxOff
 
 \usefonttheme{professionalfonts}
 
@@ -250,24 +251,24 @@
     \addtobeamertemplate{background~canvas}{}{%
       \begin{tikzpicture}[remember~picture,~overlay]
         \ifnum\c@page>1
-          \node[anchor=south~west,~inner~sep=0.4cm]
+          \node[anchor=south~west,~inner~sep=0.4cm,yshift=0.2cm,xshift=-0.2cm]
                at~(current~page.south~west)
             {%
               \hyperlink{page.\the\numexpr\c@page-1\relax}{%
                 \tikz[baseline=0pt]{
-                  \node[rounded~corners=3pt,~fill=\c__highend_nav_btn_fill_tl,~inner~sep=5pt,
-                        font=\sffamily\bfseries]{\LARGE\strut$\blacktriangleleft$};
+                  \node[rounded~corners=3pt,~fill=\c__highend_nav_btn_fill_tl,~inner~sep=4pt,
+                        font=\sffamily\bfseries]{\LARGE$\blacktriangleleft$};
                 }%
               }%
             };
         \fi
-        \node[anchor=south~east,~inner~sep=0.4cm]
+        \node[anchor=south~east,~inner~sep=0.4cm,yshift=0.2cm,xshift=0.2cm]
              at~(current~page.south~east)
           {%
             \hyperlink{page.\the\numexpr\c@page+1\relax}{%
               \tikz[baseline=0pt]{
-                \node[rounded~corners=3pt,~fill=\c__highend_nav_btn_fill_tl,~inner~sep=5pt,
-                      font=\sffamily\bfseries]{\LARGE\strut$\blacktriangleright$};
+                \node[rounded~corners=3pt,~fill=\c__highend_nav_btn_fill_tl,~inner~sep=4pt,
+                      font=\sffamily\bfseries]{\LARGE$\blacktriangleright$};
               }%
             }%
           };
