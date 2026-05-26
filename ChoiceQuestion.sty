@@ -11,8 +11,17 @@
 \RequirePackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
 
-\definecolor{AnswerGreen}{HTML}{1A7A5C}    % <--- 优雅翡翠绿
-\definecolor{BGAnswer}{HTML}{E8F5EF}       % <--- 极浅绿底色
+% --- 深色模式适配 ---
+\definecolor{AnswerGreen}{HTML}{1A7A5C}
+\definecolor{BGAnswer}{HTML}{E8F5EF}
+\cs_if_exist:NT \g__highend_dark_mode_bool
+  {
+    \bool_if:NT \g__highend_dark_mode_bool
+      {
+        \definecolor{AnswerGreen}{HTML}{4ECCA3}
+        \definecolor{BGAnswer}{HTML}{1E2A26}
+      }
+  }
 
 % 定义变量，选定义，后使用
 \tl_new:N   \l_CQ_choices_answer_tl
@@ -64,6 +73,16 @@
     color .initial:n = {black},
     unknown .code:n = \msg_error:nn { CQ_keys_choices } { unknown-key } %处理未定义的键
 }
+
+% 深色模式下覆盖选择标签默认颜色
+\cs_if_exist:NT \g__highend_dark_mode_bool
+  {
+    \bool_if:NT \g__highend_dark_mode_bool
+      {
+        \keys_define:nn { CQ_keys_choices }
+          { color .initial:n = { TextDark } }
+      }
+  }
 
 
 % ==========================================================
@@ -171,7 +190,8 @@
                 enhanced, boxrule=0pt, leftrule=2pt, arc=0pt, outer~arc=0pt,
                 left=1mm, right=1mm, top=1.5mm, bottom=1.5mm,
                 colback=\l_CQ_answer_color_tl!8, colframe=\l_CQ_answer_color_tl,
-                before~upper={ \setlength{\parskip}{0.5em} }
+                before~upper={ \setlength{\parskip}{0.5em} },
+                coltext=TextDark
                 ]
                 {
                     \setlength{\leftmargini}{2em}

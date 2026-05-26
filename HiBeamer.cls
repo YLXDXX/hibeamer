@@ -11,6 +11,7 @@
 \int_new:N \g__highend_quote_seed_int
 \bool_new:N \g__highend_handout_bool
 \bool_new:N \g__highend_show_nav_bool
+\bool_new:N \g__highend_dark_mode_bool
 
 \keys_define:nn { highendbeamer } {
   randomquote .bool_set:N = \g__highend_random_quote_bool,
@@ -24,11 +25,16 @@
   shownav .bool_set:N = \g__highend_show_nav_bool,
   shownav .default:n = true,
   shownav .initial:n = true,               % 默认显示上下页按钮
+  darkmode .bool_set:N = \g__highend_dark_mode_bool,
+  darkmode .default:n = true,
+  darkmode .initial:n = true,              % 默认深色模式（黑板风格）
 }
 \ProcessKeysOptions { highendbeamer }       % 处理传入的选项
 
 \newif\ifhighendshownav
 \bool_if:NT \g__highend_show_nav_bool { \highendshownavtrue }
+\newif\ifhighenddarkmode
+\bool_if:NT \g__highend_dark_mode_bool { \highenddarkmodetrue }
 
 % --- 讲义模式处理 ---
 \bool_if:NT \g__highend_handout_bool {
@@ -88,18 +94,39 @@
 % ==========================================
 % 模块二：色彩与字体定义
 % ==========================================
-\definecolor{PrimaryNavy}{HTML}{1A2A40}
-\definecolor{AccentGold}{HTML}{C5A065}
-\definecolor{AlertTerra}{HTML}{C75C5C}
-\definecolor{InfoTeal}{HTML}{2A9D8F}
-\definecolor{SuppBlue}{HTML}{3A6EA5}
-\definecolor{BGCoolGray}{HTML}{F5F7FA}
-\definecolor{TextDark}{HTML}{333333}
-\definecolor{LightGray}{HTML}{CCCCCC}
-\definecolor{BGImp}{HTML}{FDF6E3}
-\definecolor{BGWarn}{HTML}{FDF0F0}
-\definecolor{BGTeal}{HTML}{E8F6F3}
-\definecolor{BGBlue}{HTML}{EBF5FB}
+\ifhighenddarkmode
+  % --- 深色模式（黑板风格）---
+  \definecolor{PrimaryNavy}{HTML}{78AAD4}
+  \definecolor{AccentGold}{HTML}{DFC585}
+  \definecolor{AlertTerra}{HTML}{ED8A84}
+  \definecolor{InfoTeal}{HTML}{66C6BA}
+  \definecolor{SuppBlue}{HTML}{88B4D6}
+  \definecolor{BGCoolGray}{HTML}{2E3338}
+  \definecolor{TextDark}{HTML}{D2D4D6}
+  \definecolor{LightGray}{HTML}{868B91}
+  \definecolor{BGImp}{HTML}{363130}
+  \definecolor{BGWarn}{HTML}{342628}
+  \definecolor{BGTeal}{HTML}{283230}
+  \definecolor{BGBlue}{HTML}{262E36}
+  \definecolor{BGDark}{HTML}{1A1D22}
+  \definecolor{NavBtnBg}{HTML}{3E4349}
+  \definecolor{GridColor}{HTML}{3D4247}
+\else
+  % --- 浅色模式（原版）---
+  \definecolor{PrimaryNavy}{HTML}{1A2A40}
+  \definecolor{AccentGold}{HTML}{C5A065}
+  \definecolor{AlertTerra}{HTML}{C75C5C}
+  \definecolor{InfoTeal}{HTML}{2A9D8F}
+  \definecolor{SuppBlue}{HTML}{3A6EA5}
+  \definecolor{BGCoolGray}{HTML}{F5F7FA}
+  \definecolor{TextDark}{HTML}{333333}
+  \definecolor{LightGray}{HTML}{CCCCCC}
+  \definecolor{BGImp}{HTML}{FDF6E3}
+  \definecolor{BGWarn}{HTML}{FDF0F0}
+  \definecolor{BGTeal}{HTML}{E8F6F3}
+  \definecolor{BGBlue}{HTML}{EBF5FB}
+  \definecolor{GridColor}{HTML}{EBEEF0}
+\fi
 
 \usefonttheme{professionalfonts}
 
@@ -118,6 +145,32 @@
 \setbeamerfont{frametitle}{family=\sffamily,series=\bfseries,size=\normalsize}
 \setbeamerfont{section in head/foot}{size=\scriptsize,family=\sffamily}
 \setbeamerfont{footnote}{size=\footnotesize}
+
+% --- 深色模式：Beamer 色彩系统（类加载时设置，确保优先级） ---
+\ExplSyntaxOn
+\bool_if:NT \g__highend_dark_mode_bool
+  {
+    \setbeamercolor{normal~text}{fg=TextDark,bg=BGDark}
+    \setbeamercolor{background~canvas}{bg=BGDark}
+
+    \setbeamercolor{structure}{fg=TextDark}
+    \setbeamercolor{local~structure}{parent=structure}
+    \setbeamercolor{item~projected}{fg=TextDark}
+    \setbeamercolor{itemize~item}{fg=TextDark}
+    \setbeamercolor{itemize~subitem}{fg=TextDark}
+    \setbeamercolor{itemize~subsubitem}{fg=TextDark}
+    \setbeamercolor{enumerate~item}{fg=TextDark}
+    \setbeamercolor{enumerate~subitem}{fg=TextDark}
+    \setbeamercolor{enumerate~subsubitem}{fg=TextDark}
+    \setbeamercolor{description~item}{fg=TextDark}
+
+    \AtBeginDocument{ \pagecolor{BGDark} }
+    \AddToHook{begindocument/end}{
+      \color{TextDark}
+      \let\default@color\current@color
+    }
+  }
+\ExplSyntaxOff
 
 % ==========================================
 % 模块三：骨架与导航定制
@@ -191,6 +244,9 @@
 \ExplSyntaxOn
 \bool_if:NT \g__highend_show_nav_bool
   {
+    \bool_if:NTF \g__highend_dark_mode_bool
+      { \tl_const:Nn \c__highend_nav_btn_fill_tl { NavBtnBg } }
+      { \tl_const:Nn \c__highend_nav_btn_fill_tl { LightGray!25 } }
     \addtobeamertemplate{background~canvas}{}{%
       \begin{tikzpicture}[remember~picture,~overlay]
         \ifnum\c@page>1
@@ -199,7 +255,7 @@
             {%
               \hyperlink{page.\the\numexpr\c@page-1\relax}{%
                 \tikz[baseline=0pt]{
-                  \node[rounded~corners=3pt,~fill=LightGray!25,~inner~sep=5pt,
+                  \node[rounded~corners=3pt,~fill=\c__highend_nav_btn_fill_tl,~inner~sep=5pt,
                         font=\sffamily\bfseries]{\LARGE\strut$\blacktriangleleft$};
                 }%
               }%
@@ -210,7 +266,7 @@
           {%
             \hyperlink{page.\the\numexpr\c@page+1\relax}{%
               \tikz[baseline=0pt]{
-                \node[rounded~corners=3pt,~fill=LightGray!25,~inner~sep=5pt,
+                \node[rounded~corners=3pt,~fill=\c__highend_nav_btn_fill_tl,~inner~sep=5pt,
                       font=\sffamily\bfseries]{\LARGE\strut$\blacktriangleright$};
               }%
             }%
@@ -254,6 +310,12 @@
 
 
 % --- 大节自动过渡页  ---
+\ExplSyntaxOn
+\bool_if:NTF \g__highend_dark_mode_bool
+  { \def\highend@watermark@opacity{0.20} }
+  { \def\highend@watermark@opacity{0.12} }
+\ExplSyntaxOff
+
 \AtBeginSection[]{%
   \begingroup
   \setbeamertemplate{headline}{}
@@ -267,7 +329,7 @@
       \begin{column}{0.25\textwidth}
         \centering
         \begin{tikzpicture}
-          \node[text=PrimaryNavy, opacity=0.12,
+          \node[text=PrimaryNavy, opacity=\highend@watermark@opacity,
                 font=\sffamily\bfseries, scale=9]{\insertsectionnumber};
         \end{tikzpicture}
       \end{column}
@@ -320,7 +382,8 @@
           colback=#4, colframe=#2, colbacktitle=#2, coltitle=#3,
           fonttitle=\sffamily\bfseries,
           title={ \IfValueTF{##1} {##1} {#5} },
-          before~upper={ \setlength{\parskip}{0.5em} }
+          before~upper={ \setlength{\parskip}{0.5em} },
+          coltext=TextDark
         ]
       }
       {
@@ -328,28 +391,39 @@
       }
   }
 
-\__highend_new_block:nnnnn { thm }  { PrimaryNavy } { white }     { BGCoolGray } { Theorem }
-\__highend_new_block:nnnnn { defn } { PrimaryNavy } { white }     { BGCoolGray } { Definition }
-\__highend_new_block:nnnnn { imp }  { AccentGold }  { PrimaryNavy }{ BGImp }     { Important }
-\__highend_new_block:nnnnn { warn } { AlertTerra }  { PrimaryNavy }{ BGWarn }    { Warning }
-\__highend_new_block:nnnnn { eg }   { AccentGold }  { PrimaryNavy }{ AccentGold!8 }     { Example }
-\__highend_new_block:nnnnn { ex }   { AlertTerra }  { PrimaryNavy }{ BGWarn }    { Exercise }
-\__highend_new_block:nnnnn { tip }  { InfoTeal }    { white }     { BGTeal }    { Tip }
-\__highend_new_block:nnnnn { memo } { LightGray }   { TextDark }  { BGCoolGray }{ Memo }
-\__highend_new_block:nnnnn { supp } { SuppBlue }    { white }     { BGBlue }    { Supplement }
+\__highend_new_block:nnnnn { thm }  { PrimaryNavy } { white } { BGCoolGray } { Theorem }
+\__highend_new_block:nnnnn { defn } { PrimaryNavy } { white } { BGCoolGray } { Definition }
+\__highend_new_block:nnnnn { tip }  { InfoTeal }    { white } { BGTeal }    { Tip }
+\__highend_new_block:nnnnn { supp } { SuppBlue }    { white } { BGBlue }    { Supplement }
 
+\bool_if:NTF \g__highend_dark_mode_bool
+  {
+    \__highend_new_block:nnnnn { imp }  { AccentGold }    { white }    { BGImp }              { Important }
+    \__highend_new_block:nnnnn { warn } { AlertTerra }    { white }    { BGWarn }             { Warning }
+    \__highend_new_block:nnnnn { eg }   { AccentGold }    { white }    { AccentGold!15!BGDark }{ Example }
+    \__highend_new_block:nnnnn { ex }   { AlertTerra }    { white }    { BGWarn }             { Exercise }
+    \__highend_new_block:nnnnn { memo } { PrimaryNavy!35 } { white }    { BGCoolGray }         { Memo }
+  }
+  {
+    \__highend_new_block:nnnnn { imp }  { AccentGold }    { PrimaryNavy } { BGImp }        { Important }
+    \__highend_new_block:nnnnn { warn } { AlertTerra }    { PrimaryNavy } { BGWarn }       { Warning }
+    \__highend_new_block:nnnnn { eg }   { AccentGold }    { PrimaryNavy } { AccentGold!8 } { Example }
+    \__highend_new_block:nnnnn { ex }   { AlertTerra }    { PrimaryNavy } { BGWarn }       { Exercise }
+    \__highend_new_block:nnnnn { memo } { PrimaryNavy!35 } { TextDark }    { BGCoolGray }   { Memo }
+  }
 
- \NewDocumentEnvironment { solve } {}
-      {
-        \begin{tcolorbox}[
-          enhanced, boxrule=0pt, leftrule=2pt, arc=0pt, outer~arc=0pt,
-          left=3mm, right=3mm, top=2mm, bottom=2mm,
-          colback=BGCoolGray, colframe=PrimaryNavy,
-          before~upper={ \setlength{\parskip}{0.5em} }
-        ]
-        {\bfseries\textcolor{PrimaryNavy}{解：}}
-      }
-      { \end{tcolorbox} }
+\NewDocumentEnvironment { solve } {}
+  {
+    \begin{tcolorbox}[
+      enhanced, boxrule=0pt, leftrule=2pt, arc=0pt, outer~arc=0pt,
+      left=3mm, right=3mm, top=2mm, bottom=2mm,
+      colback=BGCoolGray, colframe=PrimaryNavy,
+      before~upper={ \setlength{\parskip}{0.5em} },
+      coltext=TextDark
+    ]
+    {\bfseries\textcolor{PrimaryNavy}{解：}}
+  }
+  { \end{tcolorbox} }
 
 \ExplSyntaxOff
 
@@ -359,7 +433,7 @@
 \tikzset{
   highend-axis/.style={->,>=stealth,PrimaryNavy,line width=1.1pt},
   highend-curve/.style={line width=1.3pt,AccentGold},
-  highend-grid/.style={help lines,step=1cm,BGCoolGray,line width=0.6pt,dashed},
+  highend-grid/.style={help lines,step=1cm,GridColor,line width=0.6pt,dashed},
   highend-aux/.style={line width=0.5pt,LightGray,dashed}
 }
 
