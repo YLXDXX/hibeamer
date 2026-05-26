@@ -10,6 +10,7 @@
 \bool_new:N \g__highend_random_quote_bool
 \int_new:N \g__highend_quote_seed_int
 \bool_new:N \g__highend_handout_bool
+\bool_new:N \g__highend_show_nav_bool
 
 \keys_define:nn { highendbeamer } {
   randomquote .bool_set:N = \g__highend_random_quote_bool,
@@ -20,8 +21,14 @@
   handout .bool_set:N = \g__highend_handout_bool,
   handout .default:n = true,
   handout .initial:n = false,
+  shownav .bool_set:N = \g__highend_show_nav_bool,
+  shownav .default:n = true,
+  shownav .initial:n = true,               % 默认显示上下页按钮
 }
 \ProcessKeysOptions { highendbeamer }       % 处理传入的选项
+
+\newif\ifhighendshownav
+\bool_if:NT \g__highend_show_nav_bool { \highendshownavtrue }
 
 % --- 讲义模式处理 ---
 \bool_if:NT \g__highend_handout_bool {
@@ -179,6 +186,39 @@
 \setbeamercovered{transparent=15}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{headline}{}
+
+% --- 页面底层导航按钮（TikZ 绘制, 不影响任何原有排版） ---
+\ExplSyntaxOn
+\bool_if:NT \g__highend_show_nav_bool
+  {
+    \addtobeamertemplate{background~canvas}{}{%
+      \begin{tikzpicture}[remember~picture,~overlay]
+        \ifnum\c@page>1
+          \node[anchor=south~west,~inner~sep=0.4cm]
+               at~(current~page.south~west)
+            {%
+              \hyperlink{page.\the\numexpr\c@page-1\relax}{%
+                \tikz[baseline=0pt]{
+                  \node[rounded~corners=3pt,~fill=LightGray!25,~inner~sep=5pt,
+                        font=\sffamily\bfseries]{\LARGE\strut$\blacktriangleleft$};
+                }%
+              }%
+            };
+        \fi
+        \node[anchor=south~east,~inner~sep=0.4cm]
+             at~(current~page.south~east)
+          {%
+            \hyperlink{page.\the\numexpr\c@page+1\relax}{%
+              \tikz[baseline=0pt]{
+                \node[rounded~corners=3pt,~fill=LightGray!25,~inner~sep=5pt,
+                      font=\sffamily\bfseries]{\LARGE\strut$\blacktriangleright$};
+              }%
+            }%
+          };
+      \end{tikzpicture}%
+    }
+  }
+\ExplSyntaxOff
 
 \setbeamertemplate{frametitle}{%
   \vskip0.1cm
