@@ -20,6 +20,8 @@
   - [多层列表定制](#多层列表定制)
   - [诗词过渡页](#诗词过渡页)
   - [讲义模式](#讲义模式)
+  - [深色模式（黑板风格）](#深色模式黑板风格)
+  - [页面翻页按钮](#页面翻页按钮)
   - [行内高亮与快捷命令](#行内高亮与快捷命令)
   - [TikZ 绘图样式](#tikz-绘图样式)
   - [表格、图表与公式编号](#表格图表与公式编号)
@@ -112,6 +114,8 @@ xelatex main.tex   # 需编译两次以生成正确目录和页码
 | `randomquote` | bool | `true` | 章节过渡页是否从 CSV 中随机抽取诗词。设为 `false` 时按 CSV 顺序循环播放。 |
 | `quoteseed` | int | `-1` | 伪随机种子。设为非负整数时，每次编译的诗词顺序固定（适合定稿课件）；`-1` 为真随机。 |
 | `handout` | bool | `false` | 讲义模式。压平所有 `<+->` 逐项动画，并自动缩放排版为 A4 打印（4 on 1）。 |
+| `shownav` | bool | `true` | 是否在页面底层显示翻页按钮（TikZ 绘制）。关闭后完全隐藏。 |
+| `darkmode` | bool | `true` | 深色模式（黑板风格）。关闭后恢复浅色原版配色。 |
 
 **示例：**
 
@@ -124,6 +128,15 @@ xelatex main.tex   # 需编译两次以生成正确目录和页码
 
 % 顺序播放 + 讲义模式
 \documentclass[randomquote=false, handout]{HiBeamer}
+
+% 深色模式（黑板风格，默认开启）
+\documentclass{HiBeamer}
+
+% 关闭深色模式，恢复浅色
+\documentclass[darkmode=false]{HiBeamer}
+
+% 关闭底部翻页按钮
+\documentclass[shownav=false]{HiBeamer}
 ```
 
 ---
@@ -278,6 +291,58 @@ xelatex main.tex   # 需编译两次以生成正确目录和页码
 - 自动将 `handout` 选项传递给 Beamer，压平所有 `<+->` 逐项动画
 - 默认使用 `pgfpages` 的 4 on 1 布局（横向 A4，4 张幻灯片）
 - 如需 2 on 1（左侧幻灯片 + 右侧笔记区），编辑 `HiBeamer.cls` 第 47 行附近的布局注释
+
+### 深色模式（黑板风格）
+
+深色模式默认开启，将页面底色设为黑板深灰（`#1A1D22`），所有文字、区块、装饰元素的颜色自动切换为浅色高对比度方案，模拟黑板书写效果，减轻长时间投影带来的视觉疲劳。
+
+**使用方式：**
+
+```latex
+% 默认深色模式
+\documentclass{HiBeamer}
+
+% 关闭深色模式，恢复浅色原版
+\documentclass[darkmode=false]{HiBeamer}
+```
+
+**深色模式下自动适配的模块：**
+- 全部 14 种语义颜色（文字、边框、背景、强调色）自动切换
+- Beamer 色彩系统（`normal text`、`structure`、列表颜色）自动重置
+- tcolorbox 区块（`thm` / `defn` / `imp` / `warn` / `eg` / `ex` / `tip` / `memo` / `supp` / `solve`）正文颜色显式适配
+- TikZ 网格线、过渡页水印透明度、导航按钮底色自动调整
+- `ChoiceQuestion` 宏包自动检测深色模式并同步 `AnswerGreen` / `BGAnswer` / 选择题标签颜色
+
+**深色模式配色参考：**
+
+| 颜色 | 浅色值 | 深色值 | 用途 |
+|------|--------|--------|------|
+| PrimaryNavy | `#1A2A40` | `#78AAD4` | 标题、规则线 |
+| AccentGold | `#C5A065` | `#DFC585` | 强调、装饰 |
+| TextDark | `#333333` | `#D2D4D6` | 正文 |
+| BGCoolGray | `#F5F7FA` | `#2E3338` | 区块底色 |
+| BGDark | — | `#1A1D22` | 页底色 |
+
+### 页面翻页按钮
+
+底栏左右两侧显示触控友好的翻页按钮（TikZ 绘制于 `background canvas` 底层），点击左箭头切换上一页、右箭头切换下一页。按钮布局完全独立于页面内容，不影响任何原有排版。
+
+**使用方式：**
+
+```latex
+% 默认显示翻页按钮
+\documentclass{HiBeamer}
+
+% 关闭翻页按钮
+\documentclass[shownav=false]{HiBeamer}
+```
+
+**按钮属性：**
+- 位置：页面左下角（◀）和右下角（▶），距页边 0.4cm
+- 样式：半透明圆角矩形底 + 实心三角箭头
+- 颜色：深色模式下 `NavBtnBg`（`#3E4349`），浅色模式下 `LightGray!25`
+- 覆盖：所有页面（含 `[plain]` 过渡页、标题页）
+- 首帧自动隐藏左箭头，末帧右箭头链接由 PDF 阅读器无感处理
 
 ### 行内高亮与快捷命令
 
