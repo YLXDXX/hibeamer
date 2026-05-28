@@ -14,13 +14,16 @@
 % --- 深色模式适配 ---
 \definecolor{AnswerGreen}{HTML}{1A7A5C}
 \definecolor{BGAnswer}{HTML}{E8F5EF}
-\cs_if_exist:NT \g__highend_dark_mode_bool
+\cs_if_exist:NTF \g__highend_dark_mode_bool
   {
     \bool_if:NT \g__highend_dark_mode_bool
       {
         \definecolor{AnswerGreen}{HTML}{4ECCA3}
-        \definecolor{BGAnswer}{HTML}{1E2A26}
+        \definecolor{BGAnswer}{HTML}{2E3338}
       }
+  }
+  {
+    \definecolor{TextDark}{HTML}{050505}
   }
 
 % 定义变量，选定义，后使用
@@ -145,12 +148,36 @@
 %填空题答案显示
 \NewDocumentCommand \tkanswer {m}
 {
-    \bool_if:NTF{\l_CQ_isanswershown_bool}
+    \cs_if_exist:NTF \g__highend_dark_mode_bool
     {
-      \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1}
+        \bool_if:NTF \g__highend_dark_mode_bool
+        {
+            \bool_if:NTF{\l_CQ_isanswershown_bool}
+            {
+            \begingroup \color{AnswerGreen} #1 \endgroup %
+            }
+            {
+            \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
+            }
+        }
+        {
+            \bool_if:NTF{\l_CQ_isanswershown_bool}
+            {
+            \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1} %
+            }
+            {
+            \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
+            }
+        }
     }
     {
-      \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1}
+        \bool_if:NTF{\l_CQ_isanswershown_bool}
+        {
+        \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1} %
+        }
+        {
+        \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
+        }
     }
 }
 
@@ -189,7 +216,7 @@
             \begin{tcolorbox}[
                 enhanced, boxrule=0pt, leftrule=2pt, arc=0pt, outer~arc=0pt,
                 left=1mm, right=1mm, top=1.5mm, bottom=1.5mm,
-                colback=\l_CQ_answer_color_tl!8, colframe=\l_CQ_answer_color_tl,
+                colback=BGAnswer, colframe=AnswerGreen,
                 before~upper={ \setlength{\parskip}{0.5em} },
                 coltext=TextDark
                 ]
@@ -274,13 +301,14 @@
             }
         }
     }
-    \use:e{\exp_not:N\begin{choices}[label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,linesep={0.5ex~plus~0.5ex~minus~0.2ex}]}
-    \item \l_CQ_choices_A_tl
-    \item \l_CQ_choices_B_tl
-    \item \l_CQ_choices_C_tl
-    \item \l_CQ_choices_D_tl
+    \use:e{\exp_not:N\begin{choices}[label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,
+        linesep={0.5ex~plus~0.5ex~minus~0.2ex},label={\exp_not:N\color{TextDark}\exp_not:N\Alph*.}
+    ]}
+        \item \color{TextDark}\l_CQ_choices_A_tl
+        \item \color{TextDark}\l_CQ_choices_B_tl
+        \item \color{TextDark}\l_CQ_choices_C_tl
+        \item \color{TextDark}\l_CQ_choices_D_tl
     \end{choices}
-
     \endgroup
 }
 
@@ -324,12 +352,36 @@
 %填空题答案显示
 \NewDocumentCommand \tkanswer {m}
 {
-    \bool_if:NTF{\l_CQ_isanswershown_bool}
+    \cs_if_exist:NTF \g__highend_dark_mode_bool
     {
-      \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1}
+        \bool_if:NTF \g__highend_dark_mode_bool
+        {
+            \bool_if:NTF{\l_CQ_isanswershown_bool}
+            {
+            \begingroup \color{AnswerGreen} #1 \endgroup %
+            }
+            {
+            \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
+            }
+        }
+        {
+            \bool_if:NTF{\l_CQ_isanswershown_bool}
+            {
+            \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1} %
+            }
+            {
+            \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
+            }
+        }
     }
     {
-      \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1}
+        \bool_if:NTF{\l_CQ_isanswershown_bool}
+        {
+        \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1} %
+        }
+        {
+        \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
+        }
     }
 }
 
@@ -351,8 +403,9 @@
         \begin{tcolorbox}[
                 enhanced, boxrule=0pt, leftrule=2pt, arc=0pt, outer~arc=0pt,
                 left=1mm, right=1mm, top=1.5mm, bottom=1.5mm,
-                colback=\l_CQ_answer_color_tl!8, colframe=\l_CQ_answer_color_tl,
-                before~upper={ \setlength{\parskip}{0.5em} }
+                colback=BGAnswer, colframe=AnswerGreen,
+                before~upper={ \setlength{\parskip}{0.5em} },
+                coltext=TextDark
                 ]
                 {
                     \setlength{\leftmargini}{2em}
@@ -382,12 +435,12 @@
         \seq_set_split:NnV \l_CQ_choices_answer_seq {} { \l_CQ_choices_answer_tl }
         \__CQ_highlight_book_answers:
     }
-
-    \use:e{\exp_not:N\begin{choices}[max-columns=2,label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,linesep={0.5ex~plus~0.5ex~minus~0.2ex}]}
-    \item \l_CQ_choices_A_tl
-    \item \l_CQ_choices_B_tl
+    \use:e{\exp_not:N\begin{choices}[max-columns=2,label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,
+        linesep={0.5ex~plus~0.5ex~minus~0.2ex},label={\exp_not:N\color{TextDark}\exp_not:N\Alph*.}
+    ]}
+        \item \color{TextDark}\l_CQ_choices_A_tl
+        \item \color{TextDark}\l_CQ_choices_B_tl
     \end{choices}
-
     \endgroup
 }
 
@@ -410,12 +463,13 @@
         \seq_set_split:NnV \l_CQ_choices_answer_seq {} { \l_CQ_choices_answer_tl }
         \__CQ_highlight_book_answers:
     }
-    \use:e{\exp_not:N\begin{choices}[label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,linesep={0.5ex~plus~0.5ex~minus~0.2ex}]}
-    \item \l_CQ_choices_A_tl
-    \item \l_CQ_choices_B_tl
-    \item \l_CQ_choices_C_tl
+    \use:e{\exp_not:N\begin{choices}[max-columns=3,label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,
+        linesep={0.5ex~plus~0.5ex~minus~0.2ex},label={\exp_not:N\color{TextDark}\exp_not:N\Alph*.}
+    ]}
+        \item \color{TextDark}\l_CQ_choices_A_tl
+        \item \color{TextDark}\l_CQ_choices_B_tl
+        \item \color{TextDark}\l_CQ_choices_C_tl
     \end{choices}
-
     \endgroup
 }
 
@@ -478,13 +532,14 @@
             }
         }
     }
-    \use:e{\exp_not:N\begin{choices}[label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,linesep={0.5ex~plus~0.5ex~minus~0.2ex}]}
-    \item \l_CQ_choices_A_tl
-    \item \l_CQ_choices_B_tl
-    \item \l_CQ_choices_C_tl
-    \item \l_CQ_choices_D_tl
+    \use:e{\exp_not:N\begin{choices}[label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,
+        linesep={0.5ex~plus~0.5ex~minus~0.2ex},label={\exp_not:N\color{TextDark}\exp_not:N\Alph*.}
+    ]}
+        \item \color{TextDark}\l_CQ_choices_A_tl
+        \item \color{TextDark}\l_CQ_choices_B_tl
+        \item \color{TextDark}\l_CQ_choices_C_tl
+        \item \color{TextDark}\l_CQ_choices_D_tl
     \end{choices}
-
     \endgroup
 }
 
@@ -510,15 +565,15 @@
         \seq_set_split:NnV \l_CQ_choices_answer_seq {} { \l_CQ_choices_answer_tl }
         \__CQ_highlight_book_answers:
     }
-
-    \use:e{\exp_not:N\begin{choices}[label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,linesep={0.5ex~plus~0.5ex~minus~0.2ex}]}
-    \item \l_CQ_choices_A_tl
-    \item \l_CQ_choices_B_tl
-    \item \l_CQ_choices_C_tl
-    \item \l_CQ_choices_D_tl
-    \item \l_CQ_choices_E_tl
+    \use:e{\exp_not:N\begin{choices}[label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,
+        linesep={0.5ex~plus~0.5ex~minus~0.2ex},label={\exp_not:N\color{TextDark}\exp_not:N\Alph*.}
+    ]}
+        \item \color{TextDark}\l_CQ_choices_A_tl
+        \item \color{TextDark}\l_CQ_choices_B_tl
+        \item \color{TextDark}\l_CQ_choices_C_tl
+        \item \color{TextDark}\l_CQ_choices_D_tl
+        \item \color{TextDark}\l_CQ_choices_E_tl
     \end{choices}
-
     \endgroup
 }
 
@@ -545,16 +600,16 @@
         \seq_set_split:NnV \l_CQ_choices_answer_seq {} { \l_CQ_choices_answer_tl }
         \__CQ_highlight_book_answers:
     }
-
-    \use:e{\exp_not:N\begin{choices}[label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,linesep={0.5ex~plus~0.5ex~minus~0.2ex}]}
-    \item \l_CQ_choices_A_tl
-    \item \l_CQ_choices_B_tl
-    \item \l_CQ_choices_C_tl
-    \item \l_CQ_choices_D_tl
-    \item \l_CQ_choices_E_tl
-    \item \l_CQ_choices_F_tl
+    \use:e{\exp_not:N\begin{choices}[max-columns=6,label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,
+        linesep={0.5ex~plus~0.5ex~minus~0.2ex},label={\exp_not:N\color{TextDark}\exp_not:N\Alph*.}
+    ]}
+        \item \color{TextDark}\l_CQ_choices_A_tl
+        \item \color{TextDark}\l_CQ_choices_B_tl
+        \item \color{TextDark}\l_CQ_choices_C_tl
+        \item \color{TextDark}\l_CQ_choices_D_tl
+        \item \color{TextDark}\l_CQ_choices_E_tl
+        \item \color{TextDark}\l_CQ_choices_F_tl
     \end{choices}
-
     \endgroup
 }
 

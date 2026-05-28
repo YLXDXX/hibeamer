@@ -119,7 +119,7 @@
   \definecolor{InfoTeal}{HTML}{2A9D8F}
   \definecolor{SuppBlue}{HTML}{3A6EA5}
   \definecolor{BGCoolGray}{HTML}{F5F7FA}
-  \definecolor{TextDark}{HTML}{333333}
+  \definecolor{TextDark}{HTML}{050505}
   \definecolor{LightGray}{HTML}{CCCCCC}
   \definecolor{BGImp}{HTML}{FDF6E3}
   \definecolor{BGWarn}{HTML}{FDF0F0}
@@ -403,7 +403,7 @@
     \__highend_new_block:nnnnn { warn } { AlertTerra }    { white }    { BGWarn }             { Warning }
     \__highend_new_block:nnnnn { eg }   { AccentGold }    { white }    { AccentGold!15!BGDark }{ Example }
     \__highend_new_block:nnnnn { ex }   { AlertTerra }    { white }    { BGWarn }             { Exercise }
-    \__highend_new_block:nnnnn { memo } { PrimaryNavy!35 } { white }    { BGCoolGray }         { Memo }
+    \__highend_new_block:nnnnn { memo } { PrimaryNavy!95 } { white }    { BGCoolGray }         { Memo }
   }
   {
     \__highend_new_block:nnnnn { imp }  { AccentGold }    { PrimaryNavy } { BGImp }        { Important }
