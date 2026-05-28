@@ -12,7 +12,7 @@
 % ============================================
 
 % ---- 当前配置：深色模式 + 随机诗词 + 固定种子 + 翻页按钮 ----
-\documentclass[darkmode=true, randomquote=true, quoteseed=2026, shownav=true]{HiBeamer}
+\documentclass[darkmode=false, randomquote=true, quoteseed=2026, shownav=true,handout=false]{HiBeamer}
 
 % ---- 或者切换为浅色模式 ----
 % \documentclass[darkmode=false, randomquote=true, quoteseed=2026, shownav=true]{HiBeamer}
@@ -22,6 +22,7 @@
 
 \usepackage[answer_shown=true]{ChoiceQuestion}
 \usepackage{PhyUnit}
+\usepackage{derivative}
 
 \title{HiBeamer 功能测试文档}
 \author{模板功能测试}
@@ -50,20 +51,17 @@
 
 % --- 定理与定义 ---
 \begin{frame}{定理与定义 --- \texttt{thm} / \texttt{defn}}
-  \begin{thm}[勾股定理]
-    直角三角形两直角边的平方和等于斜边的平方：
-    \[ a^2 + b^2 = c^2 \]
+  \begin{thm}[动能定理]
+  	合外力对物体做的功等于物体动能的变化量：
+  	\[ W_{\text{合}} = E_{k2} - E_{k1} = \frac{1}{2}mv_2^2 - \frac{1}{2}mv_1^2 \]
   \end{thm}
-
+	\vfil
   \begin{defn}[加速度]
     加速度是描述物体速度变化快慢的物理量，等于速度的变化量与发生这一变化所用时间的比值：
     \[ \vec{a} = \frac{\Delta \vec{v}}{\Delta t} \]
   \end{defn}
 
-  \begin{thm}[动能定理]
-    合外力对物体做的功等于物体动能的变化量：
-    \[ W_{\text{合}} = E_{k2} - E_{k1} = \frac{1}{2}mv_2^2 - \frac{1}{2}mv_1^2 \]
-  \end{thm}
+  
 \end{frame}
 
 % --- 重点与警示 ---
@@ -77,15 +75,12 @@
       \item 代入公式 $\vec{I} = \Delta \vec{p}$
     \end{enumerate}
   \end{imp}
-
+	\vfil
   \begin{warn}[易错警示]
     计算冲量时，\hlwarn{绝不能}直接用 $I = Ft$，除非 $F$ 是恒力！
     对于变力，只能用动量定理求平均力。
   \end{warn}
 
-  \begin{imp}
-    电荷在电场中，沿电场线方向电势降低。\hl{等势面}与电场线处处垂直。
-  \end{imp}
 \end{frame}
 
 % --- 例题与练习 ---
@@ -93,7 +88,7 @@
   \begin{eg}[斜面问题]
     质量为 $m$ 的物体在倾角为 $\theta$ 的斜面上匀速下滑，求动摩擦因数 $\mu$。
   \end{eg}
-
+\vfil
   \begin{ex}[变力问题]
     质量为 $0.5\Ukg$ 的小球从 $1.8\Um$ 高处自由落体，碰地后反弹高度为 $0.8\Um$，
     碰撞时间为 $0.01\Us$，求碰撞过程中的平均作用力。
@@ -110,7 +105,7 @@
       \item 分别列出分量方程
     \end{itemize}
   \end{tip}
-
+\vfil
   \begin{supp}[拓展知识]
     如果斜面不是固定的，而是放在光滑水平面上，则需要考虑系统质心运动定理\footnote{此时两者构成的系统在水平方向动量守恒。}。
   \end{supp}
@@ -141,14 +136,14 @@
   \begin{thm}[牛顿第二定律]
     \[ \vec{F} = m \vec{a} \]
   \end{thm}
-
+\vfil
   \pause
 
   \begin{imp}
     加速度 $\vec{a}$ 的方向与合外力 $\vec{F}_{\text{合}}$ 的方向相同，
     \hl{而非}速度 $\vec{v}$ 的方向。
   \end{imp}
-
+\vfil
   \pause
 
   \begin{warn}
@@ -206,24 +201,17 @@
 % --- 练习 + 解答 ---
 \begin{frame}{练习 + 解答展示}
   \begin{ExerciseList}
-    \item 质量为 $m$ 的小球从高度 $h$ 处自由下落，与地面碰撞后反弹至 $\dfrac{h}{4}$ 处，
-          碰撞时间为 $t$，求地面对小球的平均作用力。
-
-    \jdanswer{
-      规定向下为正方向。\\
-      落地前速度：$v_1 = \sqrt{2gh}$\\
-      反弹后速度：$v_2 = -\sqrt{2g \cdot h/4} = -\dfrac{1}{2}\sqrt{2gh}$\\
-      由动量定理：$(mg - \bar{N})t = m(v_2 - v_1)$\\
-      $\bar{N} = mg + \dfrac{3m\sqrt{2gh}}{2t}$
-    }
 
     \item 两个质量分别为 $m_1$、$m_2$ 的物体在光滑水平面上发生完全非弹性碰撞，
           已知碰前速度分别为 $v_1$、$v_2$（同方向），求碰后共同速度和动能损失。
 
     \jdanswer{
       由动量守恒：$m_1 v_1 + m_2 v_2 = (m_1 + m_2)v$\\
-      碰后共同速度：$v = \dfrac{m_1 v_1 + m_2 v_2}{m_1 + m_2}$\\
-      动能损失：$\Delta E_k = \dfrac{1}{2}\dfrac{m_1 m_2}{m_1 + m_2}(v_1 - v_2)^2$
+      碰后共同速度：
+      $$
+      	v = \frac{m_1 v_1 + m_2 v_2}{m_1 + m_2}
+      $$
+      动能损失：$$\Delta E_k = \frac{1}{2}\dfrac{m_1 m_2}{m_1 + m_2}(v_1 - v_2)^2$$
     }
   \end{ExerciseList}
 \end{frame}
@@ -262,7 +250,7 @@
   \fourchoices[answer=D]
     {$\dfrac{kQ}{R^{2}+L^{2}}$}
     {$\dfrac{kQL}{R^{2}+L^{2}}$}
-    {$\dfrac{kQR}{\sqrt{(R^{2}+L^{2})^{3}}}$}
+    {$\dfrac{kQR}{\sqrt{(R^{2}+L^{2})^{3}}}\sqrt{(R^{2}+L^{2})^{3}}$}
     {$\dfrac{kQL}{\sqrt{(R^{2}+L^{2})^{3}}}$}
 \end{frame}
 
@@ -271,10 +259,10 @@
   以下四个电路中，哪个是串联电路？（模拟演示） \xzanswer{A}
 
   \fourchoices[answer=A, ispicture=true]
-    {[串联电路示意图 A]}
-    {[并联电路示意图 B]}
-    {[混联电路示意图 C]}
-    {[短路示意图 D]}
+    {\includegraphics[width=2.5cm]{example-image-a}}
+    {\includegraphics[width=2.5cm]{example-image-b}}
+    {\includegraphics[width=2.5cm]{example-image-c}}
+    {\includegraphics[width=2.5cm]{example-image-a}}
 \end{frame}
 
 % --- 选择题：多选含数学表达式 ---
@@ -284,7 +272,7 @@
   \fourchoices[answer=AB]
     {电场强度的方向与正电荷所受电场力方向相同}
     {电场强度是描述电场力的性质的物理量}
-    {由 $E=\dfrac{F}{q}$ 可知，$E$ 与 $F$ 成正比，与 $q$ 成反比}
+    {由 $E=\frac{F}{q}$ 可知，$E$ 与 $F$ 成正比，与 $q$ 成反比}
     {电场强度为零处，电势一定为零}
 \end{frame}
 
@@ -294,7 +282,7 @@
 
   \vspace{1em}
 
-  动能的定义式为 \tkanswer{$E_k = \dfrac{1}{2}mv^2$}，国际单位是 \tkanswer{焦耳（J）}。
+  动能的定义式为 \tkanswer{$E_k = \dfrac{1}{2}mv^2$}，国际单位是 \tkanswer{焦耳，符号$\UJ[a]$}。
 
   \vspace{1em}
 
@@ -303,7 +291,7 @@
 
   \vspace{1em}
 
-  电荷在电场中的电势能变化量 $\Delta E_p = \tkanswer{-W_{\text{电场力}}}$，
+  电荷在电场中的电势能变化量 $\Delta E_p =$ \tkanswer{$-W_{\text{电场力}}$}，
   电场力做功与路径 \tkanswer{无关}。
 \end{frame}
 
@@ -445,54 +433,56 @@
 
 % --- 力学单位 ---
 \begin{frame}{常用力学单位}
-  以下为常用力学单位宏的使用演示：
+ 以下为常用力学单位宏的使用演示：\\
+ \vspace*{-0.5cm}
+\begin{columns}
+	\begin{column}{0.5\linewidth}
+	\begin{center}
+		\begin{tabular}{lll}
+			\toprule
+			物理量   & 命令              & 渲染结果 \\
+			\midrule
+			质量     & \texttt{\textbackslash Ukg}   & $\Ukg$ \\
+			长度     & \texttt{\textbackslash Um}    & $\Um$ \\
+			时间     & \texttt{\textbackslash Us}    & $\Us$ \\
+			速度     & \texttt{\textbackslash Ums}   & $\Ums$ \\
+			加速度   & \texttt{\textbackslash Umsq}  & $\Umsq$ \\
+			力       & \texttt{\textbackslash UN}    & $\UN$ \\
+			功/能量  & \texttt{\textbackslash UJ}    & $\UJ$ \\
+			功率     & \texttt{\textbackslash UW}    & $\UW$ \\
+			频率     & \texttt{\textbackslash UHz}   & $\UHz$ \\
+			弧度     & \texttt{\textbackslash Urad}  & $\Urad$ \\
+			角速度   & \texttt{\textbackslash Urads} & $\Urads$ \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	\end{column}
+	\begin{column}{0.5\linewidth}
+		\begin{center}
+			\begin{tabular}{lll}
+				\toprule
+				物理量         & 命令              & 渲染结果 \\
+				\midrule
+				电流           & \texttt{\textbackslash UA}     & $\UA$ \\
+				电压           & \texttt{\textbackslash UV}     & $\UV$ \\
+				电阻           & \texttt{\textbackslash UO}     & $\UO$ \\
+				电容           & \texttt{\textbackslash UF}     & $\UF$ \\
+				电荷量         & \texttt{\textbackslash UC}     & $\UC$ \\
+				磁感应强度     & \texttt{\textbackslash UT}     & $\UT$ \\
+				磁通量         & \texttt{\textbackslash UWb}    & $\UWb$ \\
+				自感系数       & \texttt{\textbackslash UH}     & $\UH$ \\
+				电子伏特       & \texttt{\textbackslash UeV}    & $\UeV$ \\
+				摄氏度         & \texttt{\textbackslash UdC}    & $\UdC$ \\
+				物质的量       & \texttt{\textbackslash Umol}   & $\Umol$ \\
+				\bottomrule
+			\end{tabular}
+		\end{center}
+	\end{column}
+\end{columns}
 
-  \begin{center}
-  \begin{tabular}{lll}
-    \toprule
-    物理量   & 命令              & 渲染结果 \\
-    \midrule
-    质量     & \texttt{\textbackslash Ukg}   & $\Ukg$ \\
-    长度     & \texttt{\textbackslash Um}    & $\Um$ \\
-    时间     & \texttt{\textbackslash Us}    & $\Us$ \\
-    速度     & \texttt{\textbackslash Ums}   & $\Ums$ \\
-    加速度   & \texttt{\textbackslash Umsq}  & $\Umsq$ \\
-    力       & \texttt{\textbackslash UN}    & $\UN$ \\
-    功/能量  & \texttt{\textbackslash UJ}    & $\UJ$ \\
-    功率     & \texttt{\textbackslash UW}    & $\UW$ \\
-    频率     & \texttt{\textbackslash UHz}   & $\UHz$ \\
-    弧度     & \texttt{\textbackslash Urad}  & $\Urad$ \\
-    角速度   & \texttt{\textbackslash Urads} & $\Urads$ \\
-    冲量     & \texttt{\textbackslash UNs}   & $\UNs$ \\
-    \bottomrule
-  \end{tabular}
-  \end{center}
+  
 \end{frame}
 
-% --- 电学与热学单位 ---
-\begin{frame}{电学与热学单位}
-  \begin{center}
-  \begin{tabular}{lll}
-    \toprule
-    物理量         & 命令              & 渲染结果 \\
-    \midrule
-    电流           & \texttt{\textbackslash UA}     & $\UA$ \\
-    电压           & \texttt{\textbackslash UV}     & $\UV$ \\
-    电阻           & \texttt{\textbackslash UO}     & $\UO$ \\
-    电容           & \texttt{\textbackslash UF}     & $\UF$ \\
-    电荷量         & \texttt{\textbackslash UC}     & $\UC$ \\
-    磁感应强度     & \texttt{\textbackslash UT}     & $\UT$ \\
-    磁通量         & \texttt{\textbackslash UWb}    & $\UWb$ \\
-    自感系数       & \texttt{\textbackslash UH}     & $\UH$ \\
-    电子伏特       & \texttt{\textbackslash UeV}    & $\UeV$ \\
-    摄氏度         & \texttt{\textbackslash UdC}    & $\UdC$ \\
-    物质的量       & \texttt{\textbackslash Umol}   & $\Umol$ \\
-    升             & \texttt{\textbackslash UL}     & $\UL$ \\
-    克             & \texttt{\textbackslash Ug}     & $\Ug$ \\
-    \bottomrule
-  \end{tabular}
-  \end{center}
-\end{frame}
 
 % --- 单位在公式中 ---
 \begin{frame}{单位在公式中的使用 --- 空格与 \texttt{[a]} 选项}
@@ -514,15 +504,17 @@
     \item \texttt{[a]}：$\; 100\Ukg[a] \quad 50\Um[a] \quad 10\Us[a]$
   \end{itemize}
 
-  \vspace{0.5cm}
+\end{frame}
 
-  复合单位在公式中的应用：
-  \begin{align}
-    k   &= 9.0 \times 10^9\UNmqCq                && \text{静电力常量} \\
-    G   &= 6.67 \times 10^{-11}\UNmqkgq          && \text{万有引力常量} \\
-    \frac{e}{m_e} &= 1.76 \times 10^{11}\UCkg   && \text{荷质比} \\
-    \rho &= 1.7 \times 10^{-8}\UOm                && \text{铜的电阻率}
-  \end{align}
+
+\begin{frame}{复合单位在公式中的应用}
+需要在数学环境中使用单位：
+	\begin{align}
+		k   &= 9.0 \times 10^9\UNmqCq                && \text{静电力常量} \\
+		G   &= 6.67 \times 10^{-11}\UNmqkgq          && \text{万有引力常量} \\
+		\frac{e}{m_e} &= 1.76 \times 10^{11}\UCkg   && \text{荷质比} \\
+		\rho &= 1.7 \times 10^{-8}\UOm                && \text{铜的电阻率}
+	\end{align}
 \end{frame}
 
 % ============================================
@@ -695,7 +687,7 @@
       \end{eg}
 
       \begin{solve}
-        $W = Fs = 5 \times 3 = \kern1pt 15\UJ$
+        $W = Fs = 5 \times 3 \UJ= \kern1pt 15\UJ$
       \end{solve}
     \end{column}
 
@@ -706,7 +698,7 @@
       \end{eg}
 
       \begin{solve}
-        $W = \displaystyle\int_0^3 2x\,dx = 9\UJ$
+        $W = \displaystyle\int_0^3 2x \odif{x} \UJ= 9\UJ$
       \end{solve}
     \end{column}
   \end{columns}
@@ -859,18 +851,17 @@
 \end{frame}
 
 \begin{frame}{随堂练习}
-  \begin{ex}[子弹打木块]
+  \begin{ExerciseList}[0]
+  	\item 
     质量为 $10\Ug$ 的子弹以 $300\Ums$ 的速度水平射入质量为 $2\Ukg$
-    的静止木块中并留在其中，求木块的最终速度。
-  \end{ex}
-
-  \xzanswer{B}
-
-  \fourchoices[answer=B]
+    的静止木块中并留在其中，求木块的最终速度。\xzanswer{B}
+    \fourchoices[answer=B]
     {$0\Ums$}
     {$1.5\Ums$}
     {$3.0\Ums$}
     {$300\Ums$}
+  \end{ExerciseList}
+
 \end{frame}
 
 % ============================================
