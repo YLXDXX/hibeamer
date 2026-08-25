@@ -20,10 +20,12 @@
       {
         \definecolor{AnswerGreen}{HTML}{4ECCA3}
         \definecolor{BGAnswer}{HTML}{2E3338}
+        \definecolor{AccentGold}{HTML}{DFC585}
       }
   }
   {
     \definecolor{TextDark}{HTML}{050505}
+    \definecolor{AccentGold}{HTML}{C5A065}
   }
 
 % 定义变量，选定义，后使用
@@ -146,39 +148,46 @@
 \mymod_if_beamer:T
 {
 %填空题答案显示
-\NewDocumentCommand \tkanswer {m}
+\cs_new_protected:Npn \__CQ_blank_line:nn #1 #2
 {
+ \tl_if_blank:nTF {#1}
+    {
+        % 未指定宽度时，计算答案对应的长度，如果这个长度小于0.8cm，即将其设定为0.8cm，大于0.8cm就不管
+        % 1) 在当前字体下量出答案的自然宽度
+        \hbox_set:Nn \l_tmpa_box { #2 }
+        % 2) 与 0.8cm 兜底比较，取较大者（0.8cm 即最短空线长度，可改）
+        \dim_compare:nNnTF
+            { \box_wd:N \l_tmpa_box }
+            { > }
+            { 0.8cm }
+            { \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#2} }
+            { \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{ \makebox[0.8cm][c]{#2} } }
+    }
+    {
+        \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{ \makebox[#1][c]{} }
+    }
+}
+%   #1 = 可选宽度；为空表示与答案自然宽度一致（保持原行为）
+%   #2 = 答案内容
+\NewDocumentCommand \tkanswer { O{} m }
+{
+\bool_if:NTF \l_CQ_isanswershown_bool
+    {
     \cs_if_exist:NTF \g__highend_dark_mode_bool
-    {
+        {
         \bool_if:NTF \g__highend_dark_mode_bool
-        {
-            \bool_if:NTF{\l_CQ_isanswershown_bool}
+            { \begingroup \color{AnswerGreen} #2 \endgroup }
             {
-            \begingroup \color{AnswerGreen} #1 \endgroup %
-            }
-            {
-            \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
+                \only<1>{\__CQ_blank_line:nn {#1} {#2}}
+                \only<2>{\CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#2}}
             }
         }
         {
-            \bool_if:NTF{\l_CQ_isanswershown_bool}
-            {
-            \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1} %
-            }
-            {
-            \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
-            }
+            \only<1>{\__CQ_blank_line:nn {#1} {#2}}
+            \only<2>{\CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#2}}
         }
     }
-    {
-        \bool_if:NTF{\l_CQ_isanswershown_bool}
-        {
-        \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1} %
-        }
-        {
-        \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
-        }
-    }
+    { \__CQ_blank_line:nn {#1} {#2} }
 }
 
 %选择题答案显示
@@ -206,29 +215,111 @@
 }
 
 %解答题答案显示
-\NewDocumentCommand \jdanswer {m}
+
+% =================================================================
+%  1. jdinlineenum：内联小问列表，纯 expl3，不依赖 enumitem，可以在 beamer 中使用
+% =================================================================
+\int_new:N \l__jdinline_int                     % 小问序号
+
+% 相邻两问的间距
+\cs_new_protected:Npn \__jdinline_join: { \quad }
+
+% 标签排版（#1 = 标签文本）
+%   · 非首问：先删掉上一问末尾的空格，再补间距
+%   · #1 中的序号在 \int_incr 之后才展开，故编号正确
+\cs_new_protected:Npn \__jdinline_label:n #1
 {
-    \bool_if:NTF{\l_CQ_isanswershown_bool}
-    {
-      \only<1>{\vfill}
-      \only<2>{
-            % \vfill\vspace*{1em}{\fcolorbox{\l_CQ_answer_color_tl}{\l_CQ_answer_color_tl!10}{\parbox{1\linewidth}{#1}}}\vfil % 简单的方框
+	\int_compare:nTF { \l__jdinline_int > \c_zero_int }
+	{ \mode_if_horizontal:T { \unskip } \__jdinline_join: }
+	{ }
+	\int_incr:N \l__jdinline_int
+	\mode_if_vertical:T { \noindent }    % 嵌套列表结束后可能处于竖直模式
+	#1 ~ \ignorespaces
+}
+
+% \item[自定义标签]
+\cs_new_protected:Npn \__jdinline_item_opt:w [ #1 ]
+{ \__jdinline_label:n {#1} }
+
+% \item：自动编号 (1)(2)(3)……，先探测有无 [
+\cs_new_protected:Npn \__jdinline_item:
+{
+	\peek_charcode:NTF [
+	{ \__jdinline_item_opt:w }
+	{ \__jdinline_label:n { {\color{AccentGold}\bfseries( \int_use:N \l__jdinline_int ) }} }
+}
+
+% ---- 智能空行 ---------------------------------------------------
+% 空行后紧跟【本列表】的 \item 或 \end 时吞掉之，其余场合照常分段。
+% 与 \item 的比较用“进入列表时保存的含义”，因此嵌套的真实列表
+% （itemize 等）内部的空行不受影响，仍正常竖向断行。
+\cs_new_eq:NN \__jdinline_realpar: \par
+\cs_new_eq:NN \l__jdinline_saved_item_cs \__jdinline_item:
+\cs_new_protected:Npn \__jdinline_par:
+{
+	\peek_meaning_remove_ignore_spaces:NTF \l__jdinline_saved_item_cs
+	{ \__jdinline_item: }             % 吞掉了本列表的 \item：替它执行
+	{
+		\peek_meaning_remove_ignore_spaces:NTF \end
+		{ \end }                       % 吞掉了 \end：替它执行
+		{ \__jdinline_realpar: }       % 其余：真实分段
+	}
+}
+
+\NewDocumentEnvironment { jdinlineenum } { O{} }   % [...] 选项仅吞掉不处理
+{
+	\int_zero:N \l__jdinline_int
+	% 备份 \par 后接管 \par 与 \item（均为局部定义，环境结束自动还原）
+	\cs_set_eq:NN \__jdinline_realpar: \par
+	\cs_set_protected:Npn \item { \ignorespaces \__jdinline_item: }
+	\cs_set_eq:NN \l__jdinline_saved_item_cs \item
+	\cs_set_protected:Npn \par { \__jdinline_par: }
+	\mode_if_vertical:T { \noindent }
+	\ignorespaces
+}
+{ }
+
+% =================================================================
+%  2. \jdanswer：不带星号自动把 enumerate 换成内联，带星号保持竖向排版
+% =================================================================
+
+\tl_new:N \l__CQ_jd_body_tl
+
+% 把 token list 中所有 enumerate 环境改名为 jdinlineenum
+\cs_new_protected:Npn \__CQ_inline_enumerates:
+{
+	\regex_replace_all:nnN
+	{ \c{begin} \cB\{ enumerate \cE\} }
+	{ \c{begin} \cB\{ jdinlineenum \cE\} }
+	\l__CQ_jd_body_tl
+	\regex_replace_all:nnN
+	{ \c{end} \cB\{ enumerate \cE\} }
+	{ \c{end} \cB\{ jdinlineenum \cE\} }
+	\l__CQ_jd_body_tl
+}
+
+\NewDocumentCommand \jdanswer { s +m }
+{
+	\bool_if:NTF \l_CQ_isanswershown_bool
+	{
+		\only<1>{ \vfill }
+		\only<2>{
+            \tl_set:Nn \l__CQ_jd_body_tl {#2}
+            \IfBooleanF {#1} { \__CQ_inline_enumerates: }
             \begin{tcolorbox}[
                 enhanced, boxrule=0pt, leftrule=2pt, arc=0pt, outer~arc=0pt,
                 left=1mm, right=1mm, top=1.5mm, bottom=1.5mm,
                 colback=BGAnswer, colframe=AnswerGreen,
                 before~upper={ \setlength{\parskip}{0.5em} },
-                coltext=TextDark
-                ]
-                {
-                    \setlength{\leftmargini}{2em}
-                    #1
-                }
+                coltext=TextDark ]
+                \setlength{\leftmargini}{2em}
+                \tl_use:N \l__CQ_jd_body_tl
             \end{tcolorbox}
-      }
-    }
-    {\vfill}
+		}
+	}
+	{ \vfil }
 }
+
 
 %选择题：四选项
 \NewDocumentCommand \fourchoices{ O{}mmmm }
@@ -312,6 +403,103 @@
     \endgroup
 }
 
+
+%选择题：五选项
+\NewDocumentCommand \fivechoices{ O{}mmmmm }
+{
+    \begingroup % to make sure the keys don't act globally
+
+    \keys_set:nn{CQ_keys_choices}{#1}
+
+    \bool_if:NTF{\l_CQ_choices_ispicture_bool}
+    { \tl_set:Nn \l_CQ_choices_label_pos_tl {bottom} }
+    { \tl_set:Nn \l_CQ_choices_label_pos_tl {top-left} }
+
+
+    \tl_set:Nn \l_CQ_choices_A_tl {#2}
+    \tl_set:Nn \l_CQ_choices_B_tl {#3}
+    \tl_set:Nn \l_CQ_choices_C_tl {#4}
+    \tl_set:Nn \l_CQ_choices_D_tl {#5}
+    \tl_set:Nn \l_CQ_choices_E_tl {#6}
+
+    \bool_if:NT{\l_CQ_isanswershown_bool}{
+        \seq_set_split:NnV \l_CQ_choices_answer_seq {} { \l_CQ_choices_answer_tl } %参数为空逐字分割
+
+        \seq_map_inline:Nn \l_CQ_choices_answer_seq {
+            \bool_if:NTF{\l_CQ_choices_ispicture_bool}
+            {
+                \str_if_eq:nnT{##1}{A}
+                {
+                    \tl_set:Nn \l_CQ_choices_A_tl {
+                      \only<1>{#2}
+                      \only<2>{\fcolorbox{\l_CQ_answer_color_tl}{\l_CQ_answer_color_tl!10}{#2}}
+                    }
+                }
+                \str_if_eq:nnT{##1}{B}
+                {
+                    \tl_set:Nn \l_CQ_choices_B_tl {
+                      \only<1>{#3}
+                      \only<2>{\fcolorbox{\l_CQ_answer_color_tl}{\l_CQ_answer_color_tl!10}{#3}}
+                    }
+                }
+                \str_if_eq:nnT{##1}{C}
+                {
+                    \tl_set:Nn \l_CQ_choices_C_tl {
+                      \only<1>{#4}
+                      \only<2>{\fcolorbox{\l_CQ_answer_color_tl}{\l_CQ_answer_color_tl!10}{#4}}
+                    }
+                }
+                \str_if_eq:nnT{##1}{D}
+                {
+                    \tl_set:Nn \l_CQ_choices_D_tl {
+                      \only<1>{#5}
+                      \only<2>{\fcolorbox{\l_CQ_answer_color_tl}{\l_CQ_answer_color_tl!10}{#5}}
+                    }
+                }
+                \str_if_eq:nnT{##1}{E}
+                {
+                    \tl_set:Nn \l_CQ_choices_E_tl {
+                      \only<1>{#6}
+                      \only<2>{\fcolorbox{\l_CQ_answer_color_tl}{\l_CQ_answer_color_tl!10}{#5}}
+                    }
+                }
+            }
+            {
+                \str_if_eq:nnT{##1}{A}
+                {
+                    \tl_put_left:Nn \l_CQ_choices_A_tl {\only<2>{\color{\l_CQ_answer_color_tl}}}
+                }
+                \str_if_eq:nnT{##1}{B}
+                {
+                    \tl_put_left:Nn \l_CQ_choices_B_tl {\only<2>{\color{\l_CQ_answer_color_tl}}}
+                }
+                \str_if_eq:nnT{##1}{C}
+                {
+                    \tl_put_left:Nn \l_CQ_choices_C_tl {\only<2>{\color{\l_CQ_answer_color_tl}}}
+                }
+                \str_if_eq:nnT{##1}{D}
+                {
+                    \tl_put_left:Nn \l_CQ_choices_D_tl {\only<2>{\color{\l_CQ_answer_color_tl}}}
+                }
+                \str_if_eq:nnT{##1}{E}
+                {
+                    \tl_put_left:Nn \l_CQ_choices_E_tl {\only<2>{\color{\l_CQ_answer_color_tl}}}
+                }
+            }
+        }
+    }
+    \use:e{\exp_not:N\begin{choices}[label-pos=\l_CQ_choices_label_pos_tl,top-sep=3pt,
+        linesep={0.5ex~plus~0.5ex~minus~0.2ex},label={\exp_not:N\color{TextDark}\exp_not:N\Alph*.}
+    ]}
+        \item \color{TextDark}\l_CQ_choices_A_tl
+        \item \color{TextDark}\l_CQ_choices_B_tl
+        \item \color{TextDark}\l_CQ_choices_C_tl
+        \item \color{TextDark}\l_CQ_choices_D_tl
+        \item \color{TextDark}\l_CQ_choices_E_tl
+    \end{choices}
+    \endgroup
+}
+
 }
 
 
@@ -349,40 +537,58 @@
     {$(\quad)$}
 }
 
-%填空题答案显示
-\NewDocumentCommand \tkanswer {m}
+%题目解析显示
+\NewDocumentCommand{\memoanswer}{+m}
 {
+    \bool_if:NTF{\l_CQ_isanswershown_bool}
+    {
+        \begin{tcolorbox}[enhanced, breakable, boxrule=0pt, leftrule=2pt, arc=0pt, outer~arc=0pt,
+            left=1mm, right=1mm, top=1.5mm, bottom=1.5mm,
+            colback=black!4, colframe=black!45,
+            before~upper={\setlength{\parskip}{0.5em}},
+            coltext=TextDark]
+            \setlength{\leftmargini}{2em}
+            #1
+        \end{tcolorbox}
+    }
+    {}
+}
+
+%填空题答案显示
+\cs_new_protected:Npn \__CQ_blank_line:nn #1 #2
+{
+ \tl_if_blank:nTF {#1}
+    {
+        % 未指定宽度时，计算答案对应的长度，如果这个长度小于0.8cm，即将其设定为0.8cm，大于0.8cm就不管
+        % 1) 在当前字体下量出答案的自然宽度
+        \hbox_set:Nn \l_tmpa_box { #2 }
+        % 2) 与 0.8cm 兜底比较，取较大者（0.8cm 即最短空线长度，可改）
+        \dim_compare:nNnTF
+            { \box_wd:N \l_tmpa_box }
+            { > }
+            { 0.8cm }
+            { \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#2} }
+            { \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{ \makebox[0.8cm][c]{#2} } }
+    }
+    {
+        \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{ \makebox[#1][c]{} }
+    }
+}
+%   #1 = 可选宽度；为空表示与答案自然宽度一致（保持原行为）
+%   #2 = 答案内容
+\NewDocumentCommand \tkanswer { O{} m }
+{
+\bool_if:NTF \l_CQ_isanswershown_bool
+    {
     \cs_if_exist:NTF \g__highend_dark_mode_bool
-    {
+        {
         \bool_if:NTF \g__highend_dark_mode_bool
-        {
-            \bool_if:NTF{\l_CQ_isanswershown_bool}
-            {
-            \begingroup \color{AnswerGreen} #1 \endgroup %
-            }
-            {
-            \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
-            }
+            { \begingroup \color{AnswerGreen} #2 \endgroup }
+            { \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#2} }
         }
-        {
-            \bool_if:NTF{\l_CQ_isanswershown_bool}
-            {
-            \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1} %
-            }
-            {
-            \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
-            }
-        }
+        { \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#2} }
     }
-    {
-        \bool_if:NTF{\l_CQ_isanswershown_bool}
-        {
-        \CJKunderanyline*{0.5ex}{\color{BGAnswer}\rule{2pt}{2.5ex}}{#1} %
-        }
-        {
-        \CJKunderline[hidden=true,skip=false,format=\color{AnswerGreen},thickness=1pt]{#1} %
-        }
-    }
+    { \__CQ_blank_line:nn {#1} {#2} }
 }
 
 %在高考题中，还有一类作图题，或连线题，如连接电路图
@@ -395,26 +601,109 @@
 }
 
 %解答题答案显示
-\NewDocumentCommand \jdanswer {m}
+
+% =================================================================
+%  1. jdinlineenum：内联小问列表，纯 expl3，不依赖 enumitem，可以在 beamer 中使用
+% =================================================================
+\int_new:N \l__jdinline_int                     % 小问序号
+
+% 相邻两问的间距
+\cs_new_protected:Npn \__jdinline_join: { \quad }
+
+% 标签排版（#1 = 标签文本）
+%   · 非首问：先删掉上一问末尾的空格，再补间距
+%   · #1 中的序号在 \int_incr 之后才展开，故编号正确
+\cs_new_protected:Npn \__jdinline_label:n #1
 {
-    \bool_if:NTF{\l_CQ_isanswershown_bool}
-    {
-        %{\color{\l_CQ_answer_color_tl}#1}\vfil % 简单方框
-        \begin{tcolorbox}[
-                enhanced, boxrule=0pt, leftrule=2pt, arc=0pt, outer~arc=0pt,
-                left=1mm, right=1mm, top=1.5mm, bottom=1.5mm,
-                colback=BGAnswer, colframe=AnswerGreen,
-                before~upper={ \setlength{\parskip}{0.5em} },
-                coltext=TextDark
-                ]
-                {
-                    \setlength{\leftmargini}{2em}
-                    #1
-                }
-        \end{tcolorbox}
-    }
-    {\vfil}
+	\int_compare:nTF { \l__jdinline_int > \c_zero_int }
+	{ \mode_if_horizontal:T { \unskip } \__jdinline_join: }
+	{ }
+	\int_incr:N \l__jdinline_int
+	\mode_if_vertical:T { \noindent }    % 嵌套列表结束后可能处于竖直模式
+	#1 ~ \ignorespaces
 }
+
+% \item[自定义标签]
+\cs_new_protected:Npn \__jdinline_item_opt:w [ #1 ]
+{ \__jdinline_label:n {#1} }
+
+% \item：自动编号 (1)(2)(3)……，先探测有无 [
+\cs_new_protected:Npn \__jdinline_item:
+{
+	\peek_charcode:NTF [
+	{ \__jdinline_item_opt:w }
+	{ \__jdinline_label:n { {\color{blue!40!green}( \int_use:N \l__jdinline_int ) }} }
+}
+
+% ---- 智能空行 ---------------------------------------------------
+% 空行后紧跟【本列表】的 \item 或 \end 时吞掉之，其余场合照常分段。
+% 与 \item 的比较用“进入列表时保存的含义”，因此嵌套的真实列表
+% （itemize 等）内部的空行不受影响，仍正常竖向断行。
+\cs_new_eq:NN \__jdinline_realpar: \par
+\cs_new_eq:NN \l__jdinline_saved_item_cs \__jdinline_item:
+\cs_new_protected:Npn \__jdinline_par:
+{
+	\peek_meaning_remove_ignore_spaces:NTF \l__jdinline_saved_item_cs
+	{ \__jdinline_item: }             % 吞掉了本列表的 \item：替它执行
+	{
+		\peek_meaning_remove_ignore_spaces:NTF \end
+		{ \end }                       % 吞掉了 \end：替它执行
+		{ \__jdinline_realpar: }       % 其余：真实分段
+	}
+}
+
+\NewDocumentEnvironment { jdinlineenum } { O{} }   % [...] 选项仅吞掉不处理
+{
+	\int_zero:N \l__jdinline_int
+	% 备份 \par 后接管 \par 与 \item（均为局部定义，环境结束自动还原）
+	\cs_set_eq:NN \__jdinline_realpar: \par
+	\cs_set_protected:Npn \item { \ignorespaces \__jdinline_item: }
+	\cs_set_eq:NN \l__jdinline_saved_item_cs \item
+	\cs_set_protected:Npn \par { \__jdinline_par: }
+	\mode_if_vertical:T { \noindent }
+	\ignorespaces
+}
+{ }
+
+% =================================================================
+%  2. \jdanswer：不带星号自动把 enumerate 换成内联，带星号保持竖向排版
+% =================================================================
+
+\tl_new:N \l__CQ_jd_body_tl
+
+% 把 token list 中所有 enumerate 环境改名为 jdinlineenum
+\cs_new_protected:Npn \__CQ_inline_enumerates:
+{
+	\regex_replace_all:nnN
+	{ \c{begin} \cB\{ enumerate \cE\} }
+	{ \c{begin} \cB\{ jdinlineenum \cE\} }
+	\l__CQ_jd_body_tl
+	\regex_replace_all:nnN
+	{ \c{end} \cB\{ enumerate \cE\} }
+	{ \c{end} \cB\{ jdinlineenum \cE\} }
+	\l__CQ_jd_body_tl
+}
+
+\NewDocumentCommand \jdanswer { s +m }
+{
+	\bool_if:NTF \l_CQ_isanswershown_bool
+	{
+		\tl_set:Nn \l__CQ_jd_body_tl {#2}
+		\IfBooleanF {#1} { \__CQ_inline_enumerates: }
+		\begin{tcolorbox}[
+			enhanced, boxrule=0pt, leftrule=2pt, arc=0pt, outer~arc=0pt,
+			left=1mm, right=1mm, top=1.5mm, bottom=1.5mm,
+			colback=BGAnswer, colframe=AnswerGreen,
+			before~upper={ \setlength{\parskip}{0.5em} },
+			coltext=TextDark ]
+			\setlength{\leftmargini}{2em}
+			\tl_use:N \l__CQ_jd_body_tl
+		\end{tcolorbox}
+	}
+	{ \vfil }
+}
+
+
 
 %选择题：二选项
 \NewDocumentCommand \twochoices{ O{}mm }

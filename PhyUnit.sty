@@ -43,6 +43,7 @@
 \NewDocumentCommand \UeV {o} {\__phyunit_space:n{#1}\mathrm{eV}} % eV （能量，电子伏特）
 \NewDocumentCommand \UF {o} {\__phyunit_space:n{#1}\mathrm{F}} % F （电容）
 \NewDocumentCommand \Ug {o} {\__phyunit_space:n{#1}\mathrm{g}} % g （质量）
+\NewDocumentCommand \Umg {o} {\__phyunit_space:n{#1}\mathrm{mg}} % mg （质量）
 \NewDocumentCommand \UHP {o} {\__phyunit_space:n{#1}\mathrm{HP}} % HP （功率单位：马力，horsepower）
 \NewDocumentCommand \UH {o} {\__phyunit_space:n{#1}\mathrm{H}} % H （自感系数）
 \NewDocumentCommand \UHs {o} {\__phyunit_space:n{#1}\mathrm{H}/\mathrm{s}} % H/s （同电阻）
@@ -98,6 +99,7 @@
 \NewDocumentCommand \Um {o} {\__phyunit_space:n{#1}\mathrm{m}} % m （长度）
 \NewDocumentCommand \Umsq {o} {\__phyunit_space:n{#1}\mathrm{m}/\mathrm{s}^2} % m/s^2 （加速度）
 \NewDocumentCommand \Ums {o} {\__phyunit_space:n{#1}\mathrm{m}/\mathrm{s}} % m/s （速度）
+\NewDocumentCommand \Umdsn {o} {\__phyunit_space:n{#1}\mathrm{m}\cdot\mathrm{s}^{-1}} % m·s^{-1} （速度）
 \NewDocumentCommand \Uum {o} {\__phyunit_space:n{#1}\mu\mathrm{m}} % μm （长度，微米）
 \NewDocumentCommand \UNAq {o} {\__phyunit_space:n{#1}\mathrm{N}/\mathrm{A}^2} % N/A^2 （直导线电流产生磁场的比例系数 B=kI/r）
 \NewDocumentCommand \UNC {o} {\__phyunit_space:n{#1}\mathrm{N}/\mathrm{C}} % N/C （电场强度）
@@ -121,11 +123,14 @@
 \NewDocumentCommand \Usq {o} {\__phyunit_space:n{#1}\mathrm{s}^2} % s^2
 \NewDocumentCommand \Us {o} {\__phyunit_space:n{#1}\mathrm{s}} % s （时间）
 \NewDocumentCommand \Usn {o} {\__phyunit_space:n{#1}\mathrm{s}^{-1}} % s^{-1} （时间倒数）
+\NewDocumentCommand \Usnq {o} {\__phyunit_space:n{#1}\mathrm{s}^{-2}} % s^{-2} （时间负二次方）
+\NewDocumentCommand \Uhn {o} {\__phyunit_space:n{#1}\mathrm{h}^{-1}} % h^{-1} （时间倒数）
 \NewDocumentCommand \UsVC {o} {\__phyunit_space:n{#1}\mathrm{s}\cdot\mathrm{V}/\mathrm{C}} % s·V/C （同电阻）
 \NewDocumentCommand \UTmq {o} {\__phyunit_space:n{#1}\mathrm{T}\cdot\mathrm{m}^2} % T·m^2 （同磁通量）
 \NewDocumentCommand \UT {o} {\__phyunit_space:n{#1}\mathrm{T}} % T （磁感应强度，特斯拉）
 \NewDocumentCommand \UTm {o} {\__phyunit_space:n{#1}\mathrm{T}/\mathrm{m}} % T/m 磁场随距离变化系数
 \NewDocumentCommand \UuA {o} {\__phyunit_space:n{#1}\mu\mathrm{A}} % μA （电流，微安）
+\NewDocumentCommand \UmuA {o} {\__phyunit_space:n{#1}\mu\mathrm{A}} % μA （电流，微安）
 \NewDocumentCommand \UmA {o} {\__phyunit_space:n{#1}\mathrm{mA}} % mA （电流，毫安）
 \NewDocumentCommand \Uu {o} {\__phyunit_space:n{#1}\mathrm{u}} % u （原子质量单位）
 \NewDocumentCommand \UuF {o} {\__phyunit_space:n{#1}\mu\mathrm{F}} % uF （电容）
@@ -133,7 +138,9 @@
 \NewDocumentCommand \UuH {o} {\__phyunit_space:n{#1}\mu\mathrm{H}} % μH （自感系数）
 \NewDocumentCommand \UmuH {o} {\__phyunit_space:n{#1}\mu\mathrm{H}} % μH （自感系数）
 \NewDocumentCommand \UVm {o} {\__phyunit_space:n{#1}\mathrm{V}/\mathrm{m}} % V/m （同电场强度）
+\NewDocumentCommand \UVcm {o} {\__phyunit_space:n{#1}\mathrm{V}/\mathrm{cm}} % V/cm （同电场强度）
 \NewDocumentCommand \UV {o} {\__phyunit_space:n{#1}\mathrm{V}} % V （电压）
+\NewDocumentCommand \UmV {o} {\__phyunit_space:n{#1}\mathrm{mV}} % mV （电压）
 \NewDocumentCommand \UVsA {o} {\__phyunit_space:n{#1}\mathrm{V}\cdot\mathrm{s}/\mathrm{A}} % V·s/A （同自感系数）
 \NewDocumentCommand \UVA {o} {\__phyunit_space:n{#1}\mathrm{V}/\mathrm{A}} % V/A （同电阻）
 \NewDocumentCommand \UWbmq {o} {\__phyunit_space:n{#1}\mathrm{Wb}/\mathrm{m}^2} % Wb/m^2 （磁通密度，同磁感应强度）
