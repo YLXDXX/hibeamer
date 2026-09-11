@@ -79,6 +79,9 @@
 \RequirePackage{unicode-math}
 \RequirePackage{csvsimple}
 
+%常用宏包
+\RequirePackage{derivative} %微分、偏微分符号
+
 
 \tcbuselibrary{skins,breakable}
 \usetikzlibrary{calc,positioning,arrows.meta}
@@ -589,6 +592,18 @@
 }
 {
   \end{enumerate}
+}
+
+%罗马数字大小写
+ % 小写，如 \ronum{2026}
+\NewDocumentCommand \ronum {m}
+{
+    \int_to_roman:n { #1 }
+}
+% 大写，如 \Ronum{2026}
+\NewDocumentCommand \Ronum {m}
+{
+    \int_to_Roman:n { #1 }
 }
 
 \ExplSyntaxOff
