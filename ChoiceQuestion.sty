@@ -543,6 +543,18 @@
   { \__CQ_choices:nnn { 8 } {#1}
     { {#2} , {#3} , {#4} , {#5} , {#6} , {#7} , {#8} , {#9} } }
 
-\NewDocumentCommand \ninechoices { O{} m m m m m m m m m }
-  { \__CQ_choices:nnn { 9 } {#1}
-    { {#2} , {#3} , {#4} , {#5} , {#6} , {#7} , {#8} , {#9} , {#10} } }
+% ---------- 九选项命令的辅助变量与引擎变体 ----------
+\tl_new:N \l__CQ_nine_opts_tl
+\cs_generate_variant:Nn \__CQ_choices:nnn { nVn }
+% TeX 宏参数上限为 9，故九选项命令分两步：
+%   先由 O{} 抓取可选参数，再由下面的辅助宏抓取紧随其后的 9 个选项组。
+\NewDocumentCommand \ninechoices { O{} }
+  {
+    \tl_set:Nn \l__CQ_nine_opts_tl {#1}
+    \__CQ_ninechoices_next:w
+  }
+\cs_new_protected:Npn \__CQ_ninechoices_next:w #1#2#3#4#5#6#7#8#9
+  {
+    \__CQ_choices:nVn { 9 } \l__CQ_nine_opts_tl
+      { {#1} , {#2} , {#3} , {#4} , {#5} , {#6} , {#7} , {#8} , {#9} }
+  }
