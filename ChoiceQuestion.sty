@@ -48,6 +48,9 @@
 \prop_new:N  \l_CQ_choices_mark_prop     % 需要高亮的选项（键 = 序号）
 \int_new:N   \l__CQ_choices_maxcols_int  % max-columns 值，0 = 不传该键
 \tl_new:N    \l__CQ_choices_maxcols_tl
+\clist_new:N \l__CQ_choices_items_local_clist  % 组装选项体时的局部副本
+\tl_new:N    \l__CQ_choices_body_tl            % 已组装的选项体（含字面 \item）
+\tl_new:N    \l__CQ_choices_keys_tl            % choices 环境键值列表
 
 % 消息
 \msg_new:nnn { CQ_keys_choices } { unknown-key }
@@ -496,27 +499,35 @@
         { max-columns = \int_use:N \l__CQ_choices_maxcols_int , }
     }
 
-  % 排版选项
-  \use:e
+  % 组装选项体：choices 环境以 +b 抓取正文、按**字面** \item 分割，
+  % 因此必须先生成含字面 \item 的选项体，再一次性交给环境排版；
+  % 选项内容经 \tl_put_right:NV 原样放入、不做展开（图片/公式/图形宏不受影响）。
+  \tl_set:Nx \l__CQ_choices_keys_tl
     {
-      \exp_not:N \begin { choices } [
-        \l__CQ_choices_maxcols_tl
-        label-pos = \l_CQ_choices_label_pos_tl ,
-        top-sep = 3pt ,
-        linesep = { 0.5ex ~ plus ~ 0.5ex ~ minus ~ 0.2ex } ,
-        label = { \exp_not:N \color{TextDark} \exp_not:N \Alph*. }
-      ]
+      \l__CQ_choices_maxcols_tl
+      label-pos = \l_CQ_choices_label_pos_tl ,
+      top-sep = 3pt ,
+      linesep = { 0.5ex plus 0.5ex minus 0.2ex } ,
+      label = { \exp_not:N \color { TextDark } \exp_not:N \Alph*. }
     }
+  \clist_set_eq:NN \l__CQ_choices_items_local_clist \l_CQ_choices_items_clist
+  \tl_clear:N \l__CQ_choices_body_tl
   \int_step_inline:nn {#1}
     {
-      \item \color{TextDark}
-      \prop_if_in:NnTF \l_CQ_choices_mark_prop {##1}
-        { \prop_item:Nn \l_CQ_choices_mark_prop {##1} }
-        { \clist_item:Nn \l_CQ_choices_items_clist {##1} }
+      \clist_pop:NN \l__CQ_choices_items_local_clist \l_tmpa_tl
+      \tl_put_right:Nn \l__CQ_choices_body_tl { \item }
+      \prop_if_in:NnT \l_CQ_choices_mark_prop {##1}
+        { \prop_get:NnN \l_CQ_choices_mark_prop {##1} \l_tmpa_tl }
+      \tl_put_right:NV \l__CQ_choices_body_tl \l_tmpa_tl
     }
-  \end{choices}
+  \exp_args:NVV \__CQ_choices_typeset:nn
+    \l__CQ_choices_keys_tl \l__CQ_choices_body_tl
   \endgroup
 }
+
+% 真正排版：把键值列表与（含字面 \item 的）选项体交给 choices 环境
+\cs_new_protected:Npn \__CQ_choices_typeset:nn #1 #2
+  { \begin { choices } [ #1 ] #2 \end { choices } }
 
 % ---------- 用户命令（2..9 个选项，beamer / book 通用） ----------
 \NewDocumentCommand \twochoices { O{} m m }
